@@ -1,10 +1,27 @@
 version: "3.9"
 services:
-  web:
-    build: .
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+
+    ports:
+      - '3000:3000'
+
+    volumes:
+      - ./client:/app/client
+
+    depends_on:
+      - api
+
+  api:
+    build:
+      context: ./api 
+      dockerfile: Dockerfile
+
     command: python /code/manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/code
+      - ./api:/app/api
     ports:
       - 8000:8000
     depends_on:
