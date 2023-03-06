@@ -5,7 +5,7 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const url = "http://127.0.0.1:8000/api/";
+  const url = "http://127.0.0.1:8000/api/events/";
 
   useEffect(() => {
     const getAllTodos = async () => {
