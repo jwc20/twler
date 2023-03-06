@@ -17,7 +17,12 @@ INSTALLED_APPS = [
     # 3rd party
     "corsheaders",
     "rest_framework",
+
+    # Local 
+    "accounts.apps.AccountsConfig",
 ]
+
+AUTH_USER_MODEL = "accounts.CustomUser"
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
