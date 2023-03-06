@@ -1,23 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function App() {
+  const [todos, setTodos] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const url = "http://127.0.0.1:8000/api/";
+
+  useEffect(() => {
+    const getAllTodos = async () => {
+      try {
+        const response = await axios.get(url);
+        setIsLoading(false);
+        const allTodos = response.data;
+        console.log(allTodos);
+        setTodos(allTodos);
+      } catch (error) {
+        setIsLoading(false);
+        setIsError(true);
+        console.log(error);
+      }
+    };
+
+    getAllTodos();
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {todos &&
+        todos.map((item, index) => (
+          <div key={item.id}>
+            <h1>{item.title}</h1>
+            <p>{item.body}</p>
+          </div>
+        ))}
+      {isError && <div>Error fetching data.</div>}
     </div>
   );
 }
