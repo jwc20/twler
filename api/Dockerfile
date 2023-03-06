@@ -5,9 +5,9 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK 1
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 # Set work directory
-WORKDIR /api
+WORKDIR /app/api/
 # Install dependencies
-COPY ./requirements.txt .
+COPY ./requirements.txt /app/api/
 RUN pip install -r requirements.txt
 # Copy project
-COPY . .
+COPY . /app/api/
