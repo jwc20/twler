@@ -14,12 +14,17 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
     # 3rd party
     "corsheaders",
     "rest_framework",
 
     # Local 
     "accounts.apps.AccountsConfig",
+    "events.apps.EventsConfig",
+    "eventcompetitors.apps.EventcompetitorsConfig",
+    "athletes.apps.AthletesConfig",
+    "bookmarks.apps.BookmarksConfig",
 ]
 
 AUTH_USER_MODEL = "accounts.CustomUser"
