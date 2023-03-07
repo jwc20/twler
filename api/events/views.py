@@ -3,11 +3,11 @@ from .models import Event
 from .serializers import EventSerializer
 
 
-class ListEvent(generics.ListAPIView):
+class EventList(generics.ListAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
 
 
-class DetailEvent(generics.RetrieveAPIView):
+class EventDetail(generics.RetrieveAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
