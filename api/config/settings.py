@@ -14,12 +14,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     # 3rd party
     "corsheaders",
     "rest_framework",
-
-    # Local 
+    "rest_framework.authtoken",
+    # Local
     "accounts.apps.AccountsConfig",
     "events.apps.EventsConfig",
     "eventcompetitors.apps.EventcompetitorsConfig",
@@ -31,8 +30,12 @@ AUTH_USER_MODEL = "accounts.CustomUser"
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.AllowAny",
-    ]
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ],
 }
 
 MIDDLEWARE = [
