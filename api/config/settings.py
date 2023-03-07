@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "rest_framework.authtoken",
+    "dj_rest_auth",
     # Local
     "accounts.apps.AccountsConfig",
     "events.apps.EventsConfig",
