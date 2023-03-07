@@ -2,6 +2,7 @@
 
 ### In Progress
 
+- Create advanced user registration (only require email and password).
 - Create models for event, bookmarks, athlete, event_competitor.
   - Create relationships with the models.
 - Connect iwf-api with django.
