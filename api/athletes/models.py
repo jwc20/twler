@@ -2,11 +2,13 @@ from django.db import models
 
 
 class Athlete(models.Model):
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
     gender = models.CharField(max_length=10)
-    nation = models.CharField(max_length=255)
+    nation = models.CharField(max_length=100)
     birth_date = models.DateField()
+    profile_picture = models.ImageField(upload_to='athlete_profile_pics/')
+    competitions = models.ManyToManyField("Event")
     results = models.JSONField()
 
     def __str__(self):
