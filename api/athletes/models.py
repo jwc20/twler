@@ -13,7 +13,8 @@ class Athlete(models.Model):
     # results = models.JSONField()
 
     # Relationships
-    events = models.ManyToManyField(Event, through="eventcompetitors.EventCompetitor")
+    # events = models.ManyToManyField(Event, through="eventcompetitors.EventCompetitor")
+    events = models.ManyToManyField(Event)
 
     def __str__(self):
         return self.last_name + ", " + self.first_name
