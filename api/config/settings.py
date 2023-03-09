@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     "eventcompetitors.apps.EventcompetitorsConfig",
     "athletes.apps.AthletesConfig",
     "bookmarks.apps.BookmarksConfig",
+    "results.apps.ResultsConfig",
+    "records.apps.RecordsConfig",
 ]
 
 AUTH_USER_MODEL = "accounts.CustomUser"
@@ -39,7 +41,8 @@ SITE_ID = 1
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.IsAuthenticated",
+        # "rest_framework.permissions.IsAuthenticated",
+        "rest_framework.permissions.AllowAny",
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",
