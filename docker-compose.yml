@@ -19,7 +19,7 @@ services:
       context: ./api 
       dockerfile: Dockerfile
 
-    command: python /api/manage.py runserver 0.0.0.0:8000
+    command: python /app/api/manage.py runserver 0.0.0.0:8000
     volumes:
       - ./api:/app/api
     ports:
@@ -28,7 +28,7 @@ services:
       - db 
 
   db:
-    image: postgres:13
+    image: postgres:15
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
