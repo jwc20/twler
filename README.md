@@ -1,5 +1,7 @@
 # twler
 
+![twler_erd](./twler_erd.png)
+
 ## Installation
 
 In root directory, run the following command to start both React web client and Django restful api.
