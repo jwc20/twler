@@ -1,6 +1,8 @@
+from api.iwf_api.iwf import (
+    Iwf,
+)  # Note, to run this script, you must be in the root directory.
 
-from api.iwf_api.iwf import Iwf
-# import api.iwf_api.iwf
+from pprint import pprint
 
 
 client = Iwf()
@@ -9,7 +11,6 @@ client = Iwf()
 #     print(event['name'])
 
 
-
 url = "https://iwf.sport/results/results-by-events/?event_id=486"
 result = client.get_results(url)
-print(result)
+pprint(result)
