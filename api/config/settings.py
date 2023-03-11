@@ -98,6 +98,13 @@ DATABASES = {
     }
 }
 
+# Storing scraped date to postgres
+ITEM_PIPELINES = {
+   'postgres_demo.pipelines.PostgresDemoPipeline': 300,
+}
+
+
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
