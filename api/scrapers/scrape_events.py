@@ -1,6 +1,12 @@
 import os
 from django.core.wsgi import get_wsgi_application
 
+import sys 
+
+print(sys.path)
+
+sys.path.append(os.path.abspath('/app/api'))
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 application = get_wsgi_application()
 
