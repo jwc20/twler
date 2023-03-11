@@ -17,12 +17,12 @@ password = ""
 database = "postgres"
 
 ## Create/Connect to database
-connection = psycopg2.connect(
+conn = psycopg2.connect(
     host=hostname, user=username, password=password, dbname=database
 )
 
 ## Create cursor, used to execute commands
-cur = connection.cursor()
+cur = conn.cursor()
 
 # Scrape the web and get data
 client = Iwf()
@@ -35,14 +35,15 @@ for event in client.get_events():
     date_obj = datetime.datetime.strptime(date_tuple, "%b %d, %Y")
     formatted_date = date_obj.strftime("%Y-%m-%d")
 
-    object = Event(
+    obj, created = Event.objects.get_or_create(
         name=event["name"],
         location=event["location"],
-        date=formatted_date,
         event_url=event["result_url"],
+        defaults={'date': formatted_date},
     )
-    object.save()
+    if created: 
+        obj.save()
 
-# Commit changes and close the connection
-connection.commit()
-connection.close()
+# Commit changes and close the conn
+conn.commit()
+conn.close()
