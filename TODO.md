@@ -8,6 +8,13 @@
     - Need to fetch data for results.
 - Might have to use data fetched from results to add/update athlete data.
 
+- Refactor event_competitor to have different models for snatch, clean and jerk, and total.
+  - snatch1, snatch2, snatch3, and snatch.
+  - jerk1, jerk2, jerk3, and jerk.
+  - total
+  - rank_snatch, rank_jerk, rank_total.
+  - medal_snatch, medal_jerk, medal_total.
+
 ---
 
 ###### Backlog
