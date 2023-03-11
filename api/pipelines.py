@@ -33,17 +33,38 @@ class PostgresDemoPipeline:
         CREATE TABLE IF NOT EXISTS quotes(
             id serial PRIMARY KEY, 
             name VARCHAR(255)
+            location VARCHAR(255) 
+            date VARCHAR(255)
+            url VARCHAR(255)
         )
         """)
 
 
 
 
-    def process_item(self, item):
-        # client = Iwf()
+    def process_item(self):
+        client = Iwf()
+
+        events = []
         
-        # for event in client.get_events():
-        #     print(event['name'])
+        for event in client.get_events():
+            # print(event['name'])
+            self.cur.execute(""" insert into quotes (content, tags, author) values (%s,%s,%s)""", (
+                item["text"],
+                str(item["tags"]),
+                item["author"]
+            ))
+
+            events.append(event)
+            
+            self.connection.commit()
+
+        return events
 
 
-        return item
+    def close_spider(self, spider):
+
+        ## Close cursor & connection to database 
+        self.cur.close()
+        self.connection.close()
+
