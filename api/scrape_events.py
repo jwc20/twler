@@ -39,9 +39,9 @@ for event in client.get_events():
         name=event["name"],
         location=event["location"],
         event_url=event["result_url"],
-        defaults={'date': formatted_date},
+        defaults={"name": event["name"], "date": formatted_date},
     )
-    if created: 
+    if created:
         obj.save()
 
 # Commit changes and close the conn
