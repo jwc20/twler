@@ -1,20 +1,15 @@
 import os
+import sys
+import psycopg2
+from pprint import pprint
+import datetime
 from django.core.wsgi import get_wsgi_application
 
-import sys 
-
-print(sys.path)
-
-sys.path.append(os.path.abspath('/app/api'))
-
+sys.path.append(os.path.abspath("/app/api"))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 application = get_wsgi_application()
 
 from iwf_api.iwf import Iwf
-import psycopg2
-from pprint import pprint
-import datetime
-
 from events.models import Event
 
 hostname = "db"
