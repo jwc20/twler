@@ -1,37 +1,25 @@
-from iwf_api.iwf import (
-    Iwf,
-)  # Note, to run this script, you must be in the root directory.
+import os
+from django.core.wsgi import get_wsgi_application
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
+application = get_wsgi_application()
+
+from iwf_api.iwf import Iwf
 import psycopg2
 from pprint import pprint
 import datetime
 
-import os
-from django.core.wsgi import get_wsgi_application
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
-application = get_wsgi_application()
-
-
 from events.models import Event
 
-# client = Iwf()
-
-# for event in client.get_events():
-#     print(event["name"])
-#     print(event["result_url"])
-
-
-# url = "https://iwf.sport/results/results-by-events/?event_id=486"
-# result = client.get_results(url)
-# pprint(result)
-
-
-hostname = 'db'
-username = 'postgres'
-password = '' # your password
-database = 'postgres'
+hostname = "db"
+username = "postgres"
+password = ""
+database = "postgres"
 
 ## Create/Connect to database
-connection = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
+connection = psycopg2.connect(
+    host=hostname, user=username, password=password, dbname=database
+)
 
 ## Create cursor, used to execute commands
 cur = connection.cursor()
@@ -43,24 +31,18 @@ client = Iwf()
 for event in client.get_events():
 
     # Must convert scraped event date.
-    date_tuple = event['date']
-    date_obj = datetime.datetime.strptime(date_tuple, '%b %d, %Y')
-    formatted_date = date_obj.strftime('%Y-%m-%d')
+    date_tuple = event["date"]
+    date_obj = datetime.datetime.strptime(date_tuple, "%b %d, %Y")
+    formatted_date = date_obj.strftime("%Y-%m-%d")
 
     object = Event(
-        name = event['name'], 
-        location = event['location'], 
-        date = formatted_date,
-        event_url = event['result_url']
+        name=event["name"],
+        location=event["location"],
+        date=formatted_date,
+        event_url=event["result_url"],
     )
     object.save()
 
 # Commit changes and close the connection
 connection.commit()
 connection.close()
-
-
-
-
-
-
