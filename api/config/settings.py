@@ -41,7 +41,8 @@ SITE_ID = 1
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.IsAuthenticated",
+        # "rest_framework.permissions.IsAuthenticated",
+        "rest_framework.permissions.AllowAny",
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",
@@ -92,11 +93,19 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "postgres",
         "USER": "postgres",
-        "PASSWORD": "postgres",
+        "PASSWORD": "",
         "HOST": "db",
         "PORT": 5432,
     }
 }
+
+# Storing scraped date to postgres
+
+# ITEM_PIPELINES = {
+#    'postgres_demo.pipelines.PostgresDemoPipeline': 300,
+# }
+
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
