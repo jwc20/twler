@@ -24,3 +24,29 @@ docker-compose exec api python3 manage.py createsuperuser
 ```
 
 - Visit [Django admin page](http://localhost:8000/admin) and login to superuser.
+
+#### Requirements
+
+##### Backend
+
+- django
+- djangorestframework
+- dj-rest-auth
+- allauth
+- django-cors-headers
+
+##### Scraper
+
+- request
+- beautifulsoup4
+- lxml
+
+##### IPFS Storage
+
+(Go to ipfshttpclient library > client > **init**.py and modify VERSION_MAXIMUM to current version.)
+
+- ipfshttpclient
+
+##### Frontend
+
+- react
