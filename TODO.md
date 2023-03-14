@@ -4,6 +4,8 @@
 
 - Need to fetch data for results.
 
+  - Need to fetch the links from the events model.
+
   - Might have to use data fetched from results to add/update athlete data.
 
 - Store scraped results to ipfs.
