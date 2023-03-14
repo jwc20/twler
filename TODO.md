@@ -2,6 +2,8 @@
 
 ## In Progress
 
+- Figure out how to use github repo [jwc20/py-ipfs-http-client](https://github.com/jwc20/py-ipfs-http-client) by updating DOCKERFILE and docker-compose.yml.
+
 - Need to fetch data for results.
 
   - Need to fetch the links from the events model.
