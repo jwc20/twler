@@ -2,7 +2,12 @@
 
 ## In Progress
 
-- Fetch results data from event objects.
+
+
+- Fetch results data from events using the event object links.
+
+- Need to figure out how to add json data from db.
+    - Maybe use the serializer endpoint.
 
 - Store scraped results to ipfs.
   - Generate CID

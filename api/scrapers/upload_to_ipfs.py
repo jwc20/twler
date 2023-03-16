@@ -10,31 +10,33 @@ class SomeObject:
     def __init__(self):
         self._client = ipfshttpclient.connect("/dns4/ipfs0/tcp/5001")
 
+    def upload_to_ipfs(self):
+        # Need to figure out how to add json data from db.
+        # Maybe use the serializer endpoint.
 
-    def do_something(self):
-        hash = self._client.add('test.txt')['Hash']
+        hash = self._client.add("test.txt")["Hash"]
 
     def close(self):  # Call this when your done
-	    self._client.close()
+        self._client.close()
 
 
-
-# client = SomeObject() 
-client = ipfshttpclient.connect("/dns4/ipfs0/tcp/5001")
+# client = SomeObject()
+# client = ipfshttpclient.connect("/dns4/ipfs0/tcp/5001")
 # data = [1,2]
 # client.add_json(data)
 
-data = {"Action": "Open", "Type": "PR", "Name": "IPFS", "Pubkey": 7}
-res = client.add_json(data)
+# data = {"Action": "Open", "Type": "PR", "Name": "IPFS", "Pubkey": 7}
+# res = client.add_json(data)
+# 
+# data1 = {"Action": "Closed"}
+# print(client)
+# assert data == client.get_json(res)
+# assert '{"Action":"Open","Name":"IPFS","Pubkey":7,"Type":"PR"}' == client.cat(
+#     res
+# ).decode("utf-8")
+# 
+# print(client.get_json(res), client.cat(res).decode("utf-8"))
 
-print(client)
-assert data == client.get_json(res)
-assert '{"Action":"Open","Name":"IPFS","Pubkey":7,"Type":"PR"}' == client.cat(res).decode("utf-8")
-
-print(client.get_json(res), client.cat(res).decode("utf-8"))
-	
-# print(client.get_json("Qmf8oj9wbfu73prNAA1cRQVDqA52gD5B3ApnYQQjcjffH4"))
-
-# client.do_something() 
+# client.do_something()
 
 client.close()
