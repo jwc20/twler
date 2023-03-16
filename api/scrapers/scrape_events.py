@@ -22,73 +22,80 @@ conn = psycopg2.connect(
 )
 ###########################################################
 
+from typing import Dict, List, Tuple
+import datetime
+
 from iwf_api.iwf import Iwf
 from events.models import Event
 
-# TODO: Use typing
-
 
 class EventScraper:
-    def __init__(self):
-        cur = conn.cursor()
+    def __init__(self) -> None:
+        self.conn = conn.cursor()
 
-    def fetch_event(self, event):
+    def fetch_event(self, event: Dict[str, str]) -> None:
         """
         Fetch result for a single event.
-        Use typing when fetching individual events to check. (Need to create typing for event object).
         """
-        date_tuple = event["date"]
-        date_obj = datetime.datetime.strptime(date_tuple, "%b %d, %Y")
-        formatted_date = date_obj.strftime("%Y-%m-%d")
+        date_tuple: Tuple[str, str] = event["date"]
+        date_obj: datetime.datetime = datetime.datetime.strptime(
+            date_tuple, "%b %d, %Y"
+        )
+        formatted_date: str = date_obj.strftime("%Y-%m-%d")
 
-        pprint({event["name"], event["location"], event["result_url"], formatted_date})
+        event_info: Dict[str, str] = {
+            "name": event["name"],
+            "location": event["location"],
+            "result_url": event["result_url"],
+            "date": formatted_date,
+        }
+        pprint(event_info)
 
         obj, created = Event.objects.get_or_create(
-            location=event["location"],
-            event_url=event["result_url"],
-            defaults={"name": event["name"], "date": formatted_date},
+            location=event_info["location"],
+            event_url=event_info["result_url"],
+            defaults={"name": event_info["name"], "date": event_info["date"]},
         )
 
         if created:
             obj.save()
-        pass
 
-    def fetch_new_bodyweight_events_by_year(self, client, year):
+    def fetch_new_bodyweight_events_by_year(self, client: Iwf, year: str) -> None:
         """
         Fetch result for new bodyweight events by year.
         """
         for event in client.get_events(year=year):
             self.fetch_event(event)
 
-    def fetch_old_bodyweight_events_by_year(self, client, year):
+    def fetch_old_bodyweight_events_by_year(self, client: Iwf, year: str) -> None:
+        """
+        Fetch result for old bodyweight events by year.
+        """
         for event in client.get_events(year=year, new_or_old="old"):
             self.fetch_event(event)
-        pass
 
-    def fetch_all_events(self):
+    def fetch_all_events(self) -> None:
         """
         Fetch results for all events for all years that are available.
         """
         client = Iwf()
-        year_list = client.get_years()
+        year_list: List[str] = client.get_years()
 
-        i = 0
-
-        while i < len(year_list):
-            self.fetch_new_bodyweight_events_by_year(client, year_list[i])
-            if year_list[i] == "2018":
+        for year in year_list:
+            self.fetch_new_bodyweight_events_by_year(client, year)
+            if year == "2018":
                 break
-            i += 1
 
-        while i < len(year_list):
-            self.fetch_old_bodyweight_events_by_year(client, year_list[i])
-            i += 1
+        for year in year_list:
+            if year > "2018":
+                self.fetch_old_bodyweight_events_by_year(client, year)
 
-    def close_connection(self):
-        conn.commit()
-        conn.close()
+    def close_connection(self) -> None:
+        self.conn.commit()
+        self.conn.close()
 
 
-# client.fetch_events_by_year()
-EventScraper().fetch_all_events()
-EventScraper().close_connection()
+if __name__ == "__main__":
+    scraper = EventScraper()
+    scraper.fetch_all_events()
+    scraper.close_connection()
