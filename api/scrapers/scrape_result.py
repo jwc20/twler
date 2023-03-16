@@ -62,22 +62,31 @@ class ResultScraper:
         example_url = "?event_id=544"
         pass
 
-    def fetch_result(self):
+    def fetch_result(self, url):
         """
         Fetch result for one event.
         """
-        example_url = "?event_id=544"
+        # example_url = "?event_id=544"
 
         client = Iwf()
         # __import__("pdb").set_trace()
-        result = client.get_results(example_url) 
-        pprint(result)
+        result = client.get_results(url) 
+        return result
 
     def fetch_results(self):
         """
         Fetch results for events stored in the database.
         """
-        pass
+
+        output = [] 
+        example_event_url_list = [ "?event_id=544" , "?event_id=562" ] 
+        for result_url in example_event_url_list:
+            result_scraped = self.fetch_result(result_url)
+            output.append(result_scraped)
+        
+        pprint(len(output))
+        # return output
+
 
     def store_cid_to_database(self, event_id):
         """Store or update CID in event object."""
@@ -91,6 +100,6 @@ class ResultScraper:
 
 if __name__ == "__main__":
     scraper = ResultScraper()
-    scraper.fetch_result()
+    scraper.fetch_results()
     # scraper.fetch_all_events()
     # scraper.close_connection()
