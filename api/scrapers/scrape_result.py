@@ -3,28 +3,22 @@
 import ipfshttpclient
 
 
-# with ipfshttpclient.connect() as client:
-#     print(client.id())
-#     hash = client.add("test.txt")["Hash"]
-#     print(client.stat(hash))
+with ipfshttpclient.connect("/dns4/ipfs0/tcp/5001") as client:
+    # print(client.id())
+    client = client.add("test.txt")
+    print(client['Hash'])
 
 # client.close()
 
 
+
 class ResultScraper:
     def __init__(self):
-        # client = ipfshttpclient.connect()  # Connects to: /dns/localhost/tcp/5001/http
         client = ipfshttpclient.connect("/dns4/ipfs0/tcp/5001") 
-        print(client.id())
+        # print(client.id())
+        res = client.add('test.txt')
+        print(res)
 
-
-        # # client = ipfshttpclient.connect(session=True)
-        # res = client.add('test.txt')
-        # res
-        # self._client = ipfshttpclient.connect(session=True)
-
-        # return res
-        # pass
 
     def generate_url(self):
         """
@@ -60,4 +54,4 @@ class ResultScraper:
         pass
 
 
-print(ResultScraper())
+# ResultScraper()
