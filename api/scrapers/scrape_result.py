@@ -1,21 +1,37 @@
-
 # Access the "event_url" from the event objects.
 
 import ipfshttpclient
 
+
+# with ipfshttpclient.connect() as client:
+#     print(client.id())
+#     hash = client.add("test.txt")["Hash"]
+#     print(client.stat(hash))
+
+# client.close()
+
+
 class ResultScraper:
     def __init__(self):
-        client = ipfshttpclient.connect()  # Connects to: /dns/localhost/tcp/5001/http
-        res = client.add('test.txt')
-        res
-        pass
+        # client = ipfshttpclient.connect()  # Connects to: /dns/localhost/tcp/5001/http
+        client = ipfshttpclient.connect("/dns4/ipfs0/tcp/5001") 
+        print(client.id())
 
-    def generate_url(self): 
+
+        # # client = ipfshttpclient.connect(session=True)
+        # res = client.add('test.txt')
+        # res
+        # self._client = ipfshttpclient.connect(session=True)
+
+        # return res
+        # pass
+
+    def generate_url(self):
         """
         Call to iwf-api to generate urls.
         """
         pass
-    
+
     def fetch_result(self):
         """
         Fetch result for one event.
@@ -42,3 +58,6 @@ class ResultScraper:
 
     def close(self):
         pass
+
+
+print(ResultScraper())
