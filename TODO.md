@@ -2,14 +2,12 @@
 
 ## In Progress
 
-- Figure out how to use github repo [jwc20/py-ipfs-http-client](https://github.com/jwc20/py-ipfs-http-client) by updating DOCKERFILE and docker-compose.yml.
-
 - Fetch results data from event objects.
-- Use data fetched from results to add/update athlete data.
+
 - Store scraped results to ipfs.
-- Generate CID
+  - Generate CID
 
-
+- Use data fetched from results to add/update athlete data.
 
 ---
 
@@ -33,10 +31,15 @@
 
 ## Completed
 
-- Create models for custom user accounts.
-- Connect frontend with backend (corsheaders).
-- Implement authentication and permissions in Django.
+- Figure out how to use github repo [jwc20/py-ipfs-http-client](https://github.com/jwc20/py-ipfs-http-client) by updating DOCKERFILE and docker-compose.yml.
 
 - Connect iwf-api with django.
+
   - Need to fix and adjust iwf-api to use with this project.
     - Need to update backend or iwf-api scraper to fetch **_all_** events data (this also applies to results).
+
+- Implement authentication and permissions in Django.
+
+- Connect frontend with backend (corsheaders).
+
+- Create models for custom user accounts.
