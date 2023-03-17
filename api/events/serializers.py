@@ -11,4 +11,5 @@ class EventSerializer(serializers.ModelSerializer):
             "location",
             "date",
             "event_url",
+            "cid",
         )
