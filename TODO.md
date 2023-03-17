@@ -2,23 +2,17 @@
 
 ## In Progress
 
-
+- Delete django apps that is not being used.
+- Fix the bookmarks migration error.
 - Combine scrape_events.py and scrape_result.py.
 
-- Fetch results data from events using the event object links.
-
-- Need to figure out how to add json data from db.
-    - Maybe use the serializer endpoint.
-
-- Store scraped results to ipfs.
-  - Generate CID
-
-- Use data fetched from results to add/update athlete data.
+- Create test for scraper and ipfs files.
 
 ---
 
 ###### Backlog
 
+- Use data fetched from results to add/update athlete data.
 - Create advanced user registration (only require email and password).
 - Create models for event, bookmarks, athlete, event_competitor.
   - Create relationships with the models.
@@ -36,6 +30,16 @@
 ---
 
 ## Completed
+
+- Fetch results data from events using the event object links.
+
+- Need to figure out how to add json data from db.
+
+  - Maybe use the serializer endpoint.
+
+- Store scraped results to ipfs.
+
+  - Generate CID
 
 - Figure out how to use github repo [jwc20/py-ipfs-http-client](https://github.com/jwc20/py-ipfs-http-client) by updating DOCKERFILE and docker-compose.yml.
 
