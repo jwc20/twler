@@ -2,6 +2,34 @@
 
 ## In Progress
 
+- Fix this error.
+
+```
+QmcRNKsn5tyGaMvGVjnH6xSeB8FEzxdE2po94oke3oAsmS
+{'cid': 'QmcRNKsn5tyGaMvGVjnH6xSeB8FEzxdE2po94oke3oAsmS',
+ 'date': '2022-02-26',
+ 'location': 'CAN',
+ 'name': 'Canadian Invitational',
+ 'result_url': '?event_id=537'}
+QmcRNKsn5tyGaMvGVjnH6xSeB8FEzxdE2po94oke3oAsmS
+Traceback (most recent call last):
+  File "/app/api/scrapers/scrape_events.py", line 155, in <module>
+    client.fetch_all_events()
+  File "/app/api/scrapers/scrape_events.py", line 85, in fetch_all_events
+    self.fetch_new_bodyweight_events_by_year(_client, year)
+  File "/app/api/scrapers/scrape_events.py", line 68, in fetch_new_bodyweight_events_by_year
+    self.fetch_single_event(event)
+  File "/app/api/scrapers/scrape_events.py", line 42, in fetch_single_event
+    hash = self.get_result_cid(self.fetch_result(event["result_url"]))
+  File "/app/api/scrapers/scrape_events.py", line 103, in fetch_result
+    result = _client.get_results(url)
+  File "/app/api/iwf_api/iwf/result.py", line 144, in get_results
+    success, data = self._scrape_result_info(page_data)
+  File "/app/api/iwf_api/iwf/result.py", line 50, in _scrape_result_info
+    group = card.find_all("p")[5].text.strip().split()[1]
+IndexError: list index out of range
+```
+
 - Delete django apps that is not being used.
 - Fix the bookmarks migration error.
 - Combine scrape_events.py and scrape_result.py.
