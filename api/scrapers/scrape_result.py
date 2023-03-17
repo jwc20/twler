@@ -28,7 +28,7 @@ import datetime
 from iwf_api.iwf import Iwf
 from events.models import Event
 
-from ipfs import IPFSClient 
+from ipfs import IPFSClient
 
 
 class ResultScraper:
@@ -41,8 +41,8 @@ class ResultScraper:
                 "event_url": "?event_id=562"
             }
 
-        - (upload_to_ipfs.py) returns ipfs CID 
-            - Need checking to see if results page has changed. 
+        - (upload_to_ipfs.py) returns ipfs CID
+            - Need checking to see if results page has changed.
         - Store/Update CID to event object.
             {
                 "id": 1,
@@ -52,17 +52,8 @@ class ResultScraper:
             }
     """
 
-    # TODO: Access the "event_url" from the event objects.
-
     def __init__(self) -> None:
         self.conn = conn.cursor()
-
-    def find_url(self):
-        """
-        Call to iwf-api to generate urls.
-        """
-        example_url = "?event_id=544"
-        pass
 
     def fetch_result(self, url):
         """
@@ -72,9 +63,7 @@ class ResultScraper:
         TODO: Add conditional to check if page changed.
         """
         client = Iwf()
-        # example_url = "?event_id=544"
-
-        result = client.get_results(url) 
+        result = client.get_results(url)
         return result
 
     def fetch_results(self):
@@ -82,17 +71,17 @@ class ResultScraper:
         Fetch results for events stored in the database.
         =>[ [{sn1: ..., ...}],  [{sn1: ..., ...}], ... ]
 
-        TODO: 
+        TODO:
             - Need to have parameters, not sure if I want to grab from all events in database.
             - Access the event object.
         """
 
-        output = [] 
-        example_event_url_list = [ "?event_id=544" , "?event_id=562" ] 
+        output = []
+        example_event_url_list = ["?event_id=544", "?event_id=562"]
         for result_url in example_event_url_list:
             result_scraped = self.fetch_result(result_url)
             output.append(result_scraped)
-        
+
         pprint(len(output))
         # __import__("pdb").set_trace()
         # return output
@@ -102,13 +91,11 @@ class ResultScraper:
         Upload file to ipfs node.
         => cid
         """
-        ipfs = IPFSClient() 
-        ipfs.upload_to_ipfs(result_json)
+        ipfs = IPFSClient()
+        cid = ipfs.generate_cid_for_result(result_json)
 
+        return cid
 
-
-        pass
-    
     # def add_result_files_to_ipfs(self):
     #     """Upload multiple files to ipfs node."""
     #     pass
@@ -122,14 +109,12 @@ class ResultScraper:
         self.conn.close()
 
 
-
 if __name__ == "__main__":
     client = ResultScraper()
 
     example_url = "?event_id=544"
-    result = client.fetch_result(example_url)
-    # pprint(result)
 
+    result = client.fetch_result(example_url)
     client.add_result_file_to_ipfs(result)
 
     # client.fetch_results()
