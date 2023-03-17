@@ -152,10 +152,12 @@ class EventScraper:
 
 if __name__ == "__main__":
     client = EventScraper()
-    # client.fetch_all_events()
+    client.fetch_all_events()
 
-    event = Iwf().get_events(year="2022")[0]
-    client.fetch_single_event(event)
+
+    # Get single event
+    # event = Iwf().get_events(year="2022")[0]
+    # client.fetch_single_event(event)
 
     # example_url = "?event_id=544"
     # result = client.fetch_result(example_url)
