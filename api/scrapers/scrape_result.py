@@ -28,6 +28,8 @@ import datetime
 from iwf_api.iwf import Iwf
 from events.models import Event
 
+from ipfs import IPFSClient 
+
 
 class ResultScraper:
     """
@@ -65,17 +67,24 @@ class ResultScraper:
     def fetch_result(self, url):
         """
         Fetch result for one event.
+        => [{sn1: ..., ...}]
+
+        TODO: Add conditional to check if page changed.
         """
+        client = Iwf()
         # example_url = "?event_id=544"
 
-        client = Iwf()
-        # __import__("pdb").set_trace()
         result = client.get_results(url) 
         return result
 
     def fetch_results(self):
         """
         Fetch results for events stored in the database.
+        =>[ [{sn1: ..., ...}],  [{sn1: ..., ...}], ... ]
+
+        TODO: 
+            - Need to have parameters, not sure if I want to grab from all events in database.
+            - Access the event object.
         """
 
         output = [] 
@@ -85,8 +94,24 @@ class ResultScraper:
             output.append(result_scraped)
         
         pprint(len(output))
+        # __import__("pdb").set_trace()
         # return output
 
+    def add_result_file_to_ipfs(self, result_json):
+        """
+        Upload file to ipfs node.
+        => cid
+        """
+        ipfs = IPFSClient() 
+        ipfs.upload_to_ipfs(result_json)
+
+
+
+        pass
+    
+    # def add_result_files_to_ipfs(self):
+    #     """Upload multiple files to ipfs node."""
+    #     pass
 
     def store_cid_to_database(self, event_id):
         """Store or update CID in event object."""
@@ -99,7 +124,14 @@ class ResultScraper:
 
 
 if __name__ == "__main__":
-    scraper = ResultScraper()
-    scraper.fetch_results()
-    # scraper.fetch_all_events()
-    # scraper.close_connection()
+    client = ResultScraper()
+
+    example_url = "?event_id=544"
+    result = client.fetch_result(example_url)
+    # pprint(result)
+
+    client.add_result_file_to_ipfs(result)
+
+    # client.fetch_results()
+    # client.fetch_all_events()
+    # client.close_connection()
