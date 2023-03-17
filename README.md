@@ -1,6 +1,6 @@
 # twler
 
-![twler_erd](./twler_erd.png)
+![twler_erd_1](./twler-backend-erd-v1.png)
 
 ![store_to_ipfs](./store_to_ipfs.png)
 
