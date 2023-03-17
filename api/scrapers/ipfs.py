@@ -6,7 +6,7 @@ import ipfshttpclient
 #     print(hash)
 
 # Share TCP connections until the client session is closed
-class SomeObject:
+class IPFSClient:
     def __init__(self):
         self._client = ipfshttpclient.connect("/dns4/ipfs0/tcp/5001")
 
@@ -16,10 +16,14 @@ class SomeObject:
         """
         pass
 
-    def upload_to_ipfs(self):
+    def upload_to_ipfs(self, json_data):
         # Need to figure out how to add json data from db.
         # Maybe use the serializer endpoint.
-        hash = self._client.add("test.txt")["Hash"]
+
+        # hash = self._client.add("test.txt")["Hash"]
+        print("Hello from ipfs client")
+        print(json_data)
+        __import__('pdb').set_trace()
 
     def generate_cid_for_result(self):
         """
@@ -50,4 +54,7 @@ class SomeObject:
 
 # client.do_something()
 
-client.close()
+if __name__ == "__main__":
+    client = IPFSClient()
+    client.upload_to_ipfs() 
+    client.close()
