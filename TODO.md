@@ -3,6 +3,7 @@
 ## In Progress
 
 
+- Combine scrape_events.py and scrape_result.py.
 
 - Fetch results data from events using the event object links.
 
