@@ -36,6 +36,8 @@ class EventScraper:
     def fetch_event(self, event: Dict[str, str]) -> None:
         """
         Fetch result for a single event.
+
+        TODO: Apply DRY principle.
         """
         date_tuple: Tuple[str, str] = event["date"]
         date_obj: datetime.datetime = datetime.datetime.strptime(
