@@ -86,7 +86,7 @@ class ResultScraper:
         # __import__("pdb").set_trace()
         # return output
 
-    def add_result_file_to_ipfs(self, result_json):
+    def get_result_cid(self, result_json):
         """
         Upload file to ipfs node.
         => cid
@@ -100,9 +100,29 @@ class ResultScraper:
     #     """Upload multiple files to ipfs node."""
     #     pass
 
-    def store_cid_to_database(self, event_id):
+    def store_cid_to_database(self):
         """Store or update CID in event object."""
-        pass
+        hash = self.get_result_cid(self.fetch_result(event["result_url"])),
+        print(hash)
+
+        event_info: Dict[str, str] = {
+            "name": event["name"],
+            "location": event["location"],
+            "result_url": event["result_url"],
+            "date": formatted_date,
+            # "cid": self.get_result_cid(fetch_result(event["result_url"])),
+        }
+        pprint(event_info)
+
+        obj, created = Event.objects.get_or_create(
+            location=event_info["location"],
+            event_url=event_info["result_url"],
+            cid=event_info["cid"],
+            defaults={"name": event_info["name"], "date": event_info["date"]},
+        )
+
+        if created:
+            obj.save()
 
     def close_connection(self) -> None:
         self.conn.commit()
@@ -114,8 +134,13 @@ if __name__ == "__main__":
 
     example_url = "?event_id=544"
 
-    result = client.fetch_result(example_url)
-    client.add_result_file_to_ipfs(result)
+    # result = client.fetch_result(example_url)
+    # client.add_result_file_to_ipfs(result)
+    client.store_cid_to_database()
+
+
+
+
 
     # client.fetch_results()
     # client.fetch_all_events()
