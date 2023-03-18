@@ -2,33 +2,36 @@
 
 ## In Progress
 
-- Fix this error.
-
+- In iwf-api, add more time loading the results page.
 ```
-QmcRNKsn5tyGaMvGVjnH6xSeB8FEzxdE2po94oke3oAsmS
-{'cid': 'QmcRNKsn5tyGaMvGVjnH6xSeB8FEzxdE2po94oke3oAsmS',
- 'date': '2022-02-26',
- 'location': 'CAN',
- 'name': 'Canadian Invitational',
- 'result_url': '?event_id=537'}
-QmcRNKsn5tyGaMvGVjnH6xSeB8FEzxdE2po94oke3oAsmS
+ARTEMOVA Yulia 118 ['Rank:', '14']
+GOPPOLD Anett 113 ['Rank:', '15']
+PERDUE Natasha 109 ['Rank:', '16']
+BERTRAM Sarah 107 ['Rank:', '17']
+DOMINGUEZ DE LA ROSA Yesenia 105 ['Rank:', '18']
+BERNTSSON Annika 103 ['Rank:', '19']
+TANI Ayano --- ['Rank:', '---']
+ALONSO Raquel 111 ['Rank:']
 Traceback (most recent call last):
-  File "/app/api/scrapers/scrape_events.py", line 155, in <module>
+  File "/app/api/scrapers/scrape_events.py", line 158, in <module>
     client.fetch_all_events()
-  File "/app/api/scrapers/scrape_events.py", line 85, in fetch_all_events
-    self.fetch_new_bodyweight_events_by_year(_client, year)
-  File "/app/api/scrapers/scrape_events.py", line 68, in fetch_new_bodyweight_events_by_year
+  File "/app/api/scrapers/scrape_events.py", line 93, in fetch_all_events
+    self.fetch_old_bodyweight_events_by_year(_client, year_list[i])
+  File "/app/api/scrapers/scrape_events.py", line 75, in fetch_old_bodyweight_events_by_year
     self.fetch_single_event(event)
   File "/app/api/scrapers/scrape_events.py", line 42, in fetch_single_event
     hash = self.get_result_cid(self.fetch_result(event["result_url"]))
-  File "/app/api/scrapers/scrape_events.py", line 103, in fetch_result
+  File "/app/api/scrapers/scrape_events.py", line 106, in fetch_result
     result = _client.get_results(url)
-  File "/app/api/iwf_api/iwf/result.py", line 144, in get_results
+  File "/app/api/iwf_api/iwf/result.py", line 158, in get_results
     success, data = self._scrape_result_info(page_data)
-  File "/app/api/iwf_api/iwf/result.py", line 50, in _scrape_result_info
-    group = card.find_all("p")[5].text.strip().split()[1]
+  File "/app/api/iwf_api/iwf/result.py", line 106, in _scrape_result_info
+    rank_cj = card.find_all("p")[0].text.strip().split()[1]
 IndexError: list index out of range
 ```
+the above error might be caused by lack of loading time for results page.
+
+
 
 - Delete django apps that is not being used.
 - Fix the bookmarks migration error.
