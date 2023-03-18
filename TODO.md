@@ -2,38 +2,8 @@
 
 ## In Progress
 
-- In iwf-api, add more time loading the results page.
-
-```
-ARTEMOVA Yulia 118 ['Rank:', '14']
-GOPPOLD Anett 113 ['Rank:', '15']
-PERDUE Natasha 109 ['Rank:', '16']
-BERTRAM Sarah 107 ['Rank:', '17']
-DOMINGUEZ DE LA ROSA Yesenia 105 ['Rank:', '18']
-BERNTSSON Annika 103 ['Rank:', '19']
-TANI Ayano --- ['Rank:', '---']
-ALONSO Raquel 111 ['Rank:']
-Traceback (most recent call last):
-  File "/app/api/scrapers/scrape_events.py", line 158, in <module>
-    client.fetch_all_events()
-  File "/app/api/scrapers/scrape_events.py", line 93, in fetch_all_events
-    self.fetch_old_bodyweight_events_by_year(_client, year_list[i])
-  File "/app/api/scrapers/scrape_events.py", line 75, in fetch_old_bodyweight_events_by_year
-    self.fetch_single_event(event)
-  File "/app/api/scrapers/scrape_events.py", line 42, in fetch_single_event
-    hash = self.get_result_cid(self.fetch_result(event["result_url"]))
-  File "/app/api/scrapers/scrape_events.py", line 106, in fetch_result
-    result = _client.get_results(url)
-  File "/app/api/iwf_api/iwf/result.py", line 158, in get_results
-    success, data = self._scrape_result_info(page_data)
-  File "/app/api/iwf_api/iwf/result.py", line 106, in _scrape_result_info
-    rank_cj = card.find_all("p")[0].text.strip().split()[1]
-IndexError: list index out of range
-```
-
-the above error might be caused by lack of loading time for results page.
-
 - In scrape_events.py, separate the function for fetch_all_events() with old and new bodyweight.
+    - Need to separate scraping pages into different functions and call them one-by-one to avoid stop in scraping.
 
 - Delete django apps that is not being used.
 - Fix the bookmarks migration error.
