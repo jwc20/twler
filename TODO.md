@@ -3,6 +3,7 @@
 ## In Progress
 
 - In iwf-api, add more time loading the results page.
+
 ```
 ARTEMOVA Yulia 118 ['Rank:', '14']
 GOPPOLD Anett 113 ['Rank:', '15']
@@ -29,9 +30,10 @@ Traceback (most recent call last):
     rank_cj = card.find_all("p")[0].text.strip().split()[1]
 IndexError: list index out of range
 ```
+
 the above error might be caused by lack of loading time for results page.
 
-
+- In scrape_events.py, separate the function for fetch_all_events() with old and new bodyweight.
 
 - Delete django apps that is not being used.
 - Fix the bookmarks migration error.
