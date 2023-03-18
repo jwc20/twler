@@ -4,6 +4,7 @@ import psycopg2
 from pprint import pprint
 import datetime
 from django.core.wsgi import get_wsgi_application
+import time
 
 ###########################################################
 # TODO: Create separate file to call these.
@@ -55,9 +56,7 @@ class EventScraper:
             "cid": hash,
         }
 
-        pprint(event_info)
-        print(hash)
-
+        print(event_info["name"], event_info["result_url"])
         self.store_to_database(event_info)
 
     def fetch_new_bodyweight_events_by_year(self, client: Iwf, year: str) -> None:
@@ -80,15 +79,19 @@ class EventScraper:
         """
         _client = Iwf()
         year_list: List[str] = _client.get_years()
+        i = 0
 
-        for year in year_list:
-            self.fetch_new_bodyweight_events_by_year(_client, year)
-            if year == "2018":
+        while i < len(year_list):
+            self.fetch_new_bodyweight_events_by_year(_client, year_list[i])
+            print(year_list[i])
+            if year_list[i] == "2018":
                 break
+            i += 1
 
-        for year in year_list:
-            if year > "2018":
-                self.fetch_old_bodyweight_events_by_year(_client, year)
+        while i < len(year_list):
+            print(year_list[i])
+            self.fetch_old_bodyweight_events_by_year(_client, year_list[i])
+            i += 1
 
     #################################################################################3
 
@@ -102,26 +105,6 @@ class EventScraper:
         _client = Iwf()
         result = _client.get_results(url)
         return result
-
-    # def fetch_results(self):
-    #     """
-    #     Fetch results for events stored in the database.
-    #     =>[ [{sn1: ..., ...}],  [{sn1: ..., ...}], ... ]
-
-    #     TODO:
-    #         - Need to have parameters, not sure if I want to grab from all events in database.
-    #         - Access the event object.
-    #     """
-
-    #     output = []
-    #     example_event_url_list = ["?event_id=544", "?event_id=562"]
-    #     for result_url in example_event_url_list:
-    #         result_scraped = self.fetch_result(result_url)
-    #         output.append(result_scraped)
-
-    #     pprint(len(output))
-    #     # __import__("pdb").set_trace()
-    #     # return output
 
     def get_result_cid(self, result_json):
         """
@@ -145,6 +128,8 @@ class EventScraper:
         if created:
             obj.save()
 
+    #################################################################################3
+
     def close_connection(self) -> None:
         self.conn.commit()
         self.conn.close()
@@ -153,7 +138,6 @@ class EventScraper:
 if __name__ == "__main__":
     client = EventScraper()
     client.fetch_all_events()
-
 
     # Get single event
     # event = Iwf().get_events(year="2022")[0]
