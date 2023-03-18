@@ -2,8 +2,7 @@
 
 ## In Progress
 
-- In scrape_events.py, separate the function for fetch_all_events() with old and new bodyweight.
-    - Need to separate scraping pages into different functions and call them one-by-one to avoid stop in scraping.
+- Update event model to add content_hash attribute to use when comparing results.
 
 - Delete django apps that is not being used.
 - Fix the bookmarks migration error.
