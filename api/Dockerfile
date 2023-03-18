@@ -7,6 +7,9 @@ ENV PYTHONUNBUFFERED 1
 # Set work directory
 WORKDIR /app/api/
 # Install dependencies
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y git
 COPY ./requirements.txt /app/api/
 RUN pip install -r requirements.txt
 # Copy project
