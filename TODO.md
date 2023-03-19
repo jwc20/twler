@@ -2,12 +2,15 @@
 
 ## In Progress
 
-- Update event model to add content_hash attribute to use when comparing results.
+<!-- - Update event model to add content_hash attribute to use when comparing results. -->
 
+- Create endpoints.
+  - Need to create endpoints for accessing results.
+- Access result json data using the CID from event objects. 
 - Delete django apps that is not being used.
-- Fix the bookmarks migration error.
-- Combine scrape_events.py and scrape_result.py.
 
+<!-- - Fix the bookmarks migration error. -->
+- Combine scrape_events.py and scrape_result.py.
 - Create test for scraper and ipfs files.
 
 ---
