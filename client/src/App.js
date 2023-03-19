@@ -36,7 +36,7 @@ function App() {
   }
 
   return (
-    <div>
+    <div class="App">
       {events &&
         events.map((item, index) => (
           <div key={item.id}>
