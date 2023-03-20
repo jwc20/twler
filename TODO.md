@@ -2,7 +2,8 @@
 
 ## In Progress
 
-- Update event model to add content_hash attribute to use when comparing results.
+- Put ipfs.py in api directory. 
+    - Rename the file. 
 
 - Delete django apps that is not being used.
 - Fix the bookmarks migration error.
