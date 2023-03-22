@@ -2,20 +2,21 @@
 
 ## In Progress
 
-<!-- - Update event model to add content_hash attribute to use when comparing results. -->
+- Create loading indicator to ResultTable.js.
 
-- Create endpoints.
-  - Need to create endpoints for accessing results.
-- Access result json data using the CID from event objects. 
-- Delete django apps that is not being used.
+- Put ipfs.py in api directory.
 
-<!-- - Fix the bookmarks migration error. -->
-- Combine scrape_events.py and scrape_result.py.
+  - Rename the file.
+
 - Create test for scraper and ipfs files.
 
 ---
 
 ###### Backlog
+
+- Delete django apps that is not being used.
+- Fix the bookmarks migration error.
+- Combine scrape_events.py and scrape_result.py.
 
 - Use data fetched from results to add/update athlete data.
 - Create advanced user registration (only require email and password).
