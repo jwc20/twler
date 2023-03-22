@@ -2,18 +2,21 @@
 
 ## In Progress
 
-- Put ipfs.py in api directory. 
-    - Rename the file. 
+- Create loading indicator to ResultTable.js.
 
-- Delete django apps that is not being used.
-- Fix the bookmarks migration error.
-- Combine scrape_events.py and scrape_result.py.
+- Put ipfs.py in api directory.
+
+  - Rename the file.
 
 - Create test for scraper and ipfs files.
 
 ---
 
 ###### Backlog
+
+- Delete django apps that is not being used.
+- Fix the bookmarks migration error.
+- Combine scrape_events.py and scrape_result.py.
 
 - Use data fetched from results to add/update athlete data.
 - Create advanced user registration (only require email and password).
