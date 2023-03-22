@@ -8,15 +8,11 @@ import ResultPage from "./pages/ResultPage";
 function App() {
   return (
     <div className="App">
-      {/* <ResultPage /> */}
-      {/* <EventPage /> */}
-
       <Router>
         <Routes>
           <Route exact path="/" element={<HomePage />}></Route>
           <Route path="/events" element={<EventPage />}></Route>
-          <Route path="/result" element={<ResultPage />}></Route>
-
+          <Route path="/result/:id" element={<ResultPage />}></Route>
         </Routes>
       </Router>
     </div>
