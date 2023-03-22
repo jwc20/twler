@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 // import * as IPFS from "ipfs-core";
 import axios from "axios";
+import { useParams, useNavigate, generatePath } from "react-router-dom";
 
 import ResultTable from "../components/ResultTable";
 
@@ -9,8 +10,12 @@ function ResultPage() {
   const [eventInfo, setEventInfo] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-  const url = "http://localhost:8000/api/events/1";
+  const url = `http://localhost:8000/api/events/${id}`;
+  console.log(url);
+
 
   useEffect(() => {
     const getEventInfo = async () => {
@@ -25,30 +30,24 @@ function ResultPage() {
       }
     };
     getEventInfo();
-    // const getResult = async () => {
-    //   const ipfs = await IPFS.create();
-    //   console.log(eventInfo.cid);
-    //   const result_json_data = await ipfs.dag.get(eventInfo.cid);
-    //   setResult(result_json_data);
-    // };
-    // getResult();
   }, []);
 
+
+
   return (
-    <div className="ResultPage">
-      <div>
-        <p>Test</p>
-        <li>{eventInfo.name}</li>
-        <li>{eventInfo.location}</li>
-        <li>{eventInfo.date}</li>
-        <li>{eventInfo.event_url}</li>
-        <li>{eventInfo.cid}</li>
+    <div className="result-page">
+      {id}
+      <p>Test</p>
+      <li>{eventInfo.name}</li>
+      <li>{eventInfo.location}</li>
+      <li>{eventInfo.date}</li>
+      <li>{eventInfo.event_url}</li>
+      <li>{eventInfo.cid}</li>
 
-        <br />
+      <br />
+      <hr className="dashed"></hr>
 
-        <ResultTable cid={ eventInfo.cid }/>
-
-      </div>
+      <ResultTable cid={eventInfo.cid} name={eventInfo.name} />
     </div>
   );
 }
