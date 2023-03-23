@@ -23,6 +23,10 @@ const columns = [
     cell: (info) => info.getValue(),
     footer: (info) => info.column.id,
   }),
+  columnHelper.accessor("category", {
+    cell: (info) => info.getValue(),
+    footer: (info) => info.column.id,
+  }),
   columnHelper.accessor("group", {
     cell: (info) => info.getValue(),
     footer: (info) => info.column.id,
@@ -159,17 +163,6 @@ function ResultTable({ name, cid }) {
         </tbody>
       </table>
 
-      {/* <h2>{name}</h2> */}
-      {/* <p>{cid}</p> */}
-      {/* {result && */}
-      {/*   result.map((item, index) => ( */}
-      {/*     // The items need a key that is not the name. */}
-      {/*     <div key={item.name}> */}
-      {/*       <li> */}
-      {/*         {item.name} {item.snatch} {item.jerk} {item.rank} */}
-      {/*       </li> */}
-      {/*     </div> */}
-      {/*   ))} */}
     </div>
   );
 }
