@@ -2,84 +2,100 @@ import { useState, useEffect, useReducer } from "react";
 import axios from "axios";
 
 import {
+  ColumnDef,
   createColumnHelper,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
+function strikeThroughColumn(str) {
+  return str.includes("<strike>") && str.includes("</strike>")
+    ? <strike>{str.replace("<strike>", "").replace("</strike>", "")}</strike>
+    : str;
+}
+
 const columnHelper = createColumnHelper();
 
 const columns = [
-  columnHelper.accessor("name", {
-    cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
+  columnHelper.group({
+    id: "Info",
+    header: () => <h1>Information</h1>,
+    columns: [
+      // Basic info
+      columnHelper.accessor("name", {
+        cell: (info) => info.getValue(),
+        footer: (info) => info.column.id,
+      }),
+      columnHelper.accessor("birthdate", {
+        cell: (info) => info.getValue(),
+        footer: (info) => info.column.id,
+      }),
+      columnHelper.accessor("nation", {
+        cell: (info) => info.getValue(),
+        footer: (info) => info.column.id,
+      }),
+      columnHelper.accessor("category", {
+        cell: (info) => info.getValue(),
+        footer: (info) => info.column.id,
+      }),
+      columnHelper.accessor("group", {
+        cell: (info) => info.getValue(),
+        footer: (info) => info.column.id,
+      }),
+    ],
   }),
-  columnHelper.accessor("birthdate", {
-    cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor("nation", {
-    cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor("category", {
-    cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor("group", {
-    cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
-  }),
+
+  // Snatch
   columnHelper.accessor("snatch1", {
-    cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
+    cell: (info) => strikeThroughColumn(info.getValue()),
+    header: "sn1",
   }),
   columnHelper.accessor("snatch2", {
-    cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
+    cell: (info) => strikeThroughColumn(info.getValue()),
+    header: "sn2",
   }),
   columnHelper.accessor("snatch3", {
-    cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
+    cell: (info) => strikeThroughColumn(info.getValue()),
+    header: "sn3",
   }),
   columnHelper.accessor("snatch", {
-    cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
+    cell: (info) => strikeThroughColumn(info.getValue()),
   }),
   columnHelper.accessor("rank_sn", {
     cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
   }),
+
+  // Clean and Jerk
   columnHelper.accessor("jerk1", {
-    cell: (info) => info.getValue(),
+    cell: (info) => strikeThroughColumn(info.getValue()),
+    header: "cj1",
     footer: (info) => info.column.id,
   }),
-  columnHelper.accessor("jerk2", {
-    cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
+  columnHelper.accessor("jerk2", {  
+    cell: (info) => strikeThroughColumn(info.getValue()),
+    header: "cj2",
   }),
   columnHelper.accessor("jerk3", {
-    cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
+    cell: (info) => strikeThroughColumn(info.getValue()),
+    header: "cj3",
   }),
   columnHelper.accessor("jerk", {
-    cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
+    cell: (info) => strikeThroughColumn(info.getValue()),
   }),
   columnHelper.accessor("rank_cj", {
     cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
   }),
+
+  // Total
   columnHelper.accessor("total", {
-    cell: (info) => info.getValue(),
+    cell: (info) => strikeThroughColumn(info.getValue()),
     footer: (info) => info.column.id,
   }),
   columnHelper.accessor("rank", {
     cell: (info) => info.getValue(),
     footer: (info) => info.column.id,
   }),
-
 ];
 
 function ResultTable({ name, cid }) {
@@ -107,7 +123,7 @@ function ResultTable({ name, cid }) {
           // console.log(url);
           axios.get(url).then((response) => {
             setResult(response.data);
-            setData([...response.data])
+            setData([...response.data]);
             setIsLoading(false);
           });
           // console.log(response.data);
@@ -131,13 +147,13 @@ function ResultTable({ name, cid }) {
   }, [cid]);
 
   return (
-    <div className="result-table">
+    <div className="p-2">
       <table>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th key={header.id}>
+                <th key={header.id} colSpan={header.colSpan}>
                   {header.isPlaceholder
                     ? null
                     : flexRender(
@@ -162,7 +178,6 @@ function ResultTable({ name, cid }) {
           ))}
         </tbody>
       </table>
-
     </div>
   );
 }
