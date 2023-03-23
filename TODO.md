@@ -5,7 +5,6 @@
 #### High Priority
 
 - Create a better frontend
-
   - Add tables.
   - Add charts.
   - Create loading indicator to ResultTable.js.
@@ -13,7 +12,6 @@
 - Create tests for scraper and ipfs files.
 
 - Put ipfs.py in api directory.
-
   - Rename the file.
 
 - Figure out divide-and-conquer method for scheduling scraper.
@@ -23,7 +21,6 @@
 ###### Backlog
 
 - Create a scheduler on netlify.
-
 - Delete django apps that is not being used.
 - Fix the bookmarks migration error.
 
