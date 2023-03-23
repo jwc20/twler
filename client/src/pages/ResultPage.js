@@ -14,7 +14,7 @@ function ResultPage() {
   const navigate = useNavigate();
 
   const url = `http://localhost:8000/api/events/${id}`;
-  console.log(url);
+  // console.log(url);
 
 
   useEffect(() => {
