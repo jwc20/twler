@@ -36,6 +36,7 @@ function ResultPage() {
 
   return (
     <div className="result-page">
+      <h1>This is the Result Page.</h1>
       {id}
       <p>Test</p>
       <li>{eventInfo.name}</li>

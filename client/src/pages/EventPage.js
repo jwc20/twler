@@ -29,7 +29,8 @@ function EventPage() {
     return <div>Loading...</div>;
   }
   return (
-    <div className="EventPage">
+    <div className="event-page">
+      <h1>This is the Event Page.</h1>
       {events &&
         events.map((item, index) => (
           <div key={item.id}>

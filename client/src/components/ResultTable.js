@@ -148,6 +148,7 @@ function ResultTable({ name, cid }) {
 
   return (
     <div className="p-2">
+      <h1>This is the Result Table Component.</h1>
       <table>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
