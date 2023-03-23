@@ -2,34 +2,27 @@
 
 ## In Progress
 
-- Create loading indicator to ResultTable.js.
+#### High Priority
+
+- Create a better frontend
+
+  - Add tables.
+  - Add charts.
+  - Create loading indicator to ResultTable.js.
+
+- Create tests for scraper and ipfs files.
 
 - Put ipfs.py in api directory.
-
   - Rename the file.
-
-- Create test for scraper and ipfs files.
 
 ---
 
 ###### Backlog
 
+- Create a scheduler on netlify.
+
 - Delete django apps that is not being used.
 - Fix the bookmarks migration error.
-- Combine scrape_events.py and scrape_result.py.
-
-- Use data fetched from results to add/update athlete data.
-- Create advanced user registration (only require email and password).
-- Create models for event, bookmarks, athlete, event_competitor.
-  - Create relationships with the models.
-- Create custom permissions for the views.
-
-- Refactor event_competitor to have different models for snatch, clean and jerk, and total.
-  - snatch1, snatch2, snatch3, and snatch.
-  - jerk1, jerk2, jerk3, and jerk.
-  - total
-  - rank_snatch, rank_jerk, rank_total.
-  - medal_snatch, medal_jerk, medal_total.
 
 ---
 
@@ -37,6 +30,7 @@
 
 ## Completed
 
+- Combine scrape_events.py and scrape_result.py.
 - Fetch results data from events using the event object links.
 
 - Need to figure out how to add json data from db.
