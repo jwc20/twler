@@ -13,7 +13,10 @@
 - Create tests for scraper and ipfs files.
 
 - Put ipfs.py in api directory.
+
   - Rename the file.
+
+- Figure out divide-and-conquer method for scheduling scraper.
 
 ---
 
