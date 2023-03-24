@@ -49,11 +49,11 @@ const columns = [
   }),
 
   columnHelper.group({
-    id: "Info",
+    id: "lifts",
     header: () => <h1>Competition Lifts</h1>,
     columns: [
       columnHelper.group({
-        id: "Info",
+        id: "sn",
         header: () => <h1>Snatch</h1>,
         columns: [
           // Snatch
@@ -78,7 +78,7 @@ const columns = [
         ],
       }),
       columnHelper.group({
-        id: "Info",
+        id: "cj",
         header: () => <h1>Clean and Jerk</h1>,
         columns: [
           // Clean and Jerk
@@ -108,7 +108,7 @@ const columns = [
 
   // Total
   columnHelper.accessor("total", {
-    cell: (info) => strikeThroughColumn(info.getValue()),
+    cell: (info) => info.getValue(),
     footer: (info) => info.column.id,
   }),
   columnHelper.accessor("rank", {
@@ -166,7 +166,7 @@ function ResultTable({ name, cid }) {
   }, [cid]);
 
   return (
-    <div className="p-2">
+    <div>
       <h1>This is the Result Table Component.</h1>
       <table>
         <thead>
