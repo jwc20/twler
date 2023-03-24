@@ -4,7 +4,13 @@
 
 #### High Priority
 
+- Create a component to organize table.
+
+  - Create dropdown menu for tables.
+  - Add sorting, filtering, and etc.
+
 - Create a better frontend
+
   - Add tables.
   - Add charts.
   - Create loading indicator to ResultTable.js.
@@ -14,11 +20,11 @@
 - Put ipfs.py in api directory.
   - Rename the file.
 
-- Figure out divide-and-conquer method for scheduling scraper.
-
 ---
 
 ###### Backlog
+
+- Figure out divide-and-conquer method for scheduling scraper.
 
 - Create a scheduler on netlify.
 - Delete django apps that is not being used.
