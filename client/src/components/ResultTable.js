@@ -12,11 +12,6 @@ function strikeThroughColumn(str) {
   );
 }
 
-// const medals = cx(
-//   item.rank_sn === "1" ? "gold-medal" : "",
-//   item.rank_sn === "2" ? "silver-medal" : ""
-// );
-
 function ResultTable({ name, cid }) {
   const [result, setResult] = useState([]);
   const [eventInfo, setEventInfo] = useState();
@@ -24,9 +19,6 @@ function ResultTable({ name, cid }) {
   const [isError, setIsError] = useState(false);
   const [url, setUrl] = useState("");
   const [data, setData] = useState([]);
-
-  // tanstack table
-  const rerender = useReducer(() => ({}), {})[1];
 
   const groupedByCategoryData = data.reduce((groups, item) => {
     const category = item.category;
@@ -40,14 +32,11 @@ function ResultTable({ name, cid }) {
     const getResult = async () => {
       try {
         timer = setTimeout(() => {
-          // console.log(url);
           axios.get(url).then((response) => {
             setResult(response.data);
             setData([...response.data]);
             setIsLoading(false);
           });
-          // console.log(response.data);
-          // console.log(typeof response.data)
         }, 5000);
       } catch (error) {
         setIsLoading(false);
