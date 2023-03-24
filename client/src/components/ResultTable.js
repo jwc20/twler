@@ -165,9 +165,17 @@ function ResultTable({ name, cid }) {
     setUrl(builtUrl);
   }, [cid]);
 
+
+  const groupByCategory = data.reduce((groups, item) => {
+    const category = item.category;
+    groups[category] = groups[category] || []; 
+    groups[category].push(item); 
+    return groups;
+  }, {})
+  // console.log(groupByCategory)
+
   return (
-    <div>
-      <h1>This is the Result Table Component.</h1>
+    <div className="my-10">
       <table>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
