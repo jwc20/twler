@@ -2,14 +2,7 @@ import { useState, useEffect, useReducer } from "react";
 import axios from "axios";
 
 import { useTable } from "react-table";
-
-import {
-  ColumnDef,
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+import cx from "classnames";
 
 function strikeThroughColumn(str) {
   return str.includes("<strike>") && str.includes("</strike>") ? (
@@ -19,105 +12,10 @@ function strikeThroughColumn(str) {
   );
 }
 
-const columnHelper = createColumnHelper();
-
-const columns = [
-  columnHelper.group({
-    id: "Info",
-    header: () => <h1>Information</h1>,
-    columns: [
-      // Basic info
-      columnHelper.accessor("name", {
-        cell: (info) => info.getValue(),
-        footer: (info) => info.column.id,
-      }),
-      columnHelper.accessor("birthdate", {
-        cell: (info) => info.getValue(),
-        footer: (info) => info.column.id,
-      }),
-      columnHelper.accessor("nation", {
-        cell: (info) => info.getValue(),
-        footer: (info) => info.column.id,
-      }),
-      columnHelper.accessor("category", {
-        cell: (info) => info.getValue(),
-        footer: (info) => info.column.id,
-      }),
-      columnHelper.accessor("group", {
-        cell: (info) => info.getValue(),
-        footer: (info) => info.column.id,
-      }),
-    ],
-  }),
-
-  columnHelper.group({
-    id: "lifts",
-    header: () => <h1>Competition Lifts</h1>,
-    columns: [
-      columnHelper.group({
-        id: "sn",
-        header: () => <h1>Snatch</h1>,
-        columns: [
-          // Snatch
-          columnHelper.accessor("snatch1", {
-            cell: (info) => strikeThroughColumn(info.getValue()),
-            header: "sn1",
-          }),
-          columnHelper.accessor("snatch2", {
-            cell: (info) => strikeThroughColumn(info.getValue()),
-            header: "sn2",
-          }),
-          columnHelper.accessor("snatch3", {
-            cell: (info) => strikeThroughColumn(info.getValue()),
-            header: "sn3",
-          }),
-          columnHelper.accessor("snatch", {
-            cell: (info) => strikeThroughColumn(info.getValue()),
-          }),
-          columnHelper.accessor("rank_sn", {
-            cell: (info) => info.getValue(),
-          }),
-        ],
-      }),
-      columnHelper.group({
-        id: "cj",
-        header: () => <h1>Clean and Jerk</h1>,
-        columns: [
-          // Clean and Jerk
-          columnHelper.accessor("jerk1", {
-            cell: (info) => strikeThroughColumn(info.getValue()),
-            header: "cj1",
-            footer: (info) => info.column.id,
-          }),
-          columnHelper.accessor("jerk2", {
-            cell: (info) => strikeThroughColumn(info.getValue()),
-            header: "cj2",
-          }),
-          columnHelper.accessor("jerk3", {
-            cell: (info) => strikeThroughColumn(info.getValue()),
-            header: "cj3",
-          }),
-          columnHelper.accessor("jerk", {
-            cell: (info) => strikeThroughColumn(info.getValue()),
-          }),
-          columnHelper.accessor("rank_cj", {
-            cell: (info) => info.getValue(),
-          }),
-        ],
-      }),
-    ],
-  }),
-
-  // Total
-  columnHelper.accessor("total", {
-    cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor("rank", {
-    cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
-  }),
-];
+// const medals = cx(
+//   item.rank_sn === "1" ? "gold-medal" : "",
+//   item.rank_sn === "2" ? "silver-medal" : ""
+// );
 
 function ResultTable({ name, cid }) {
   const [result, setResult] = useState([]);
@@ -168,37 +66,19 @@ function ResultTable({ name, cid }) {
     setUrl(builtUrl);
   }, [cid]);
 
-  // console.log(groupedByCategoryData);
-
-  // for (const key in groupedByCategoryData) {
-  //   if (Object.hasOwnProperty.call(groupedByCategoryData, key)) {
-  //     const categoryData = groupedByCategoryData[key];
-  //     // console.log(`category: ${key}: ${categoryData.length} objects`);
-  //     // console.log(categoryData);
-  //   }
-  // }
-
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
-
-  console.log(Object.keys(groupedByCategoryData));
-
   return (
     <div className="my-10">
       {Object.keys(groupedByCategoryData).map((category) => (
         <div key={category}>
           <h2>{category}</h2>
-          <Table data={groupedByCategoryData[category]} columns={columns} />
+          <Table data={groupedByCategoryData[category]} />
         </div>
       ))}
     </div>
   );
 }
 
-function Table({ data, columns }) {
+function Table({ data }) {
   return (
     <div>
       <table>
@@ -232,7 +112,7 @@ function Table({ data, columns }) {
             <tr key={index}>
               <td>{item.name}</td>
               <td>{item.nation}</td>
-              <td>{item.birtddate}</td>
+              <td>{item.birthdate}</td>
               <td>{item.bodyweight}</td>
               <td>{item.group}</td>
               {/* <td>{item.gender}</td> */}
@@ -240,16 +120,42 @@ function Table({ data, columns }) {
               <td>{strikeThroughColumn(item.snatch1)}</td>
               <td>{strikeThroughColumn(item.snatch2)}</td>
               <td>{strikeThroughColumn(item.snatch3)}</td>
-              <td>{item.snatch}</td>
+              <td
+                className={cx(
+                  item.rank_sn === "1" ? "bg-yellow-300" : "",
+                  item.rank_sn === "2" ? "bg-gray-300" : "",
+                  item.rank_sn === "3" ? "bg-yellow-600" : ""
+                )}
+              >
+                {item.snatch}
+              </td>
+
               <td>{item.rank_sn}</td>
 
               <td>{strikeThroughColumn(item.jerk1)}</td>
               <td>{strikeThroughColumn(item.jerk2)}</td>
               <td>{strikeThroughColumn(item.jerk3)}</td>
-              <td>{item.jerk}</td>
+              <td
+                className={cx(
+                  item.rank_cj === "1" ? "bg-yellow-300" : "",
+                  item.rank_cj === "2" ? "bg-gray-300" : "",
+                  item.rank_cj === "3" ? "bg-yellow-600" : ""
+                )}
+              >
+                {item.jerk}
+              </td>
+
               <td>{item.rank_cj}</td>
 
-              <td>{item.total}</td>
+              <td
+                className={cx(
+                  item.rank === "1" ? "bg-yellow-300" : "",
+                  item.rank === "2" ? "bg-gray-300" : "",
+                  item.rank === "3" ? "bg-yellow-600" : ""
+                )}
+              >
+                {item.total}
+              </td>
               <td>{item.rank}</td>
             </tr>
           ))}
