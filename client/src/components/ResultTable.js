@@ -1,7 +1,7 @@
 import { useState, useEffect, useReducer } from "react";
 import axios from "axios";
 
-import { useTable } from "react-table"
+import { useTable } from "react-table";
 
 import {
   ColumnDef,
@@ -137,8 +137,6 @@ function ResultTable({ name, cid }) {
     return groups;
   }, {});
 
-
-
   useEffect(() => {
     let timer;
     const getResult = async () => {
@@ -185,7 +183,6 @@ function ResultTable({ name, cid }) {
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
-  
 
   console.log(Object.keys(groupedByCategoryData));
 
@@ -193,43 +190,71 @@ function ResultTable({ name, cid }) {
     <div className="my-10">
       {Object.keys(groupedByCategoryData).map((category) => (
         <div key={category}>
-          <h3>Category {category}</h3>
-
-          <table>
-            <thead>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <th key={header.id} colSpan={header.colSpan}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-
-            <tbody>
-              {table.getRowModel().rows.map((row) => (
-                <tr key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <h2>{category}</h2>
+          <Table data={groupedByCategoryData[category]} columns={columns} />
         </div>
       ))}
+    </div>
+  );
+}
+
+function Table({ data, columns }) {
+  return (
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>name</th>
+            <th>nation</th>
+            <th>birthdate</th>
+            <th>bodyweight</th>
+            <th>group</th>
+            {/* <th>gender</th> */}
+
+            <th>snatch1</th>
+            <th>snatch2</th>
+            <th>snatch3</th>
+            <th>snatch</th>
+            <th>rank_sn</th>
+
+            <th>jerk1</th>
+            <th>jerk2</th>
+            <th>jerk3</th>
+            <th>jerk</th>
+            <th>rank_cj</th>
+
+            <th>total</th>
+            <th>rank</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item, index) => (
+            <tr key={index}>
+              <td>{item.name}</td>
+              <td>{item.nation}</td>
+              <td>{item.birtddate}</td>
+              <td>{item.bodyweight}</td>
+              <td>{item.group}</td>
+              {/* <td>{item.gender}</td> */}
+
+              <td>{strikeThroughColumn(item.snatch1)}</td>
+              <td>{strikeThroughColumn(item.snatch2)}</td>
+              <td>{strikeThroughColumn(item.snatch3)}</td>
+              <td>{item.snatch}</td>
+              <td>{item.rank_sn}</td>
+
+              <td>{strikeThroughColumn(item.jerk1)}</td>
+              <td>{strikeThroughColumn(item.jerk2)}</td>
+              <td>{strikeThroughColumn(item.jerk3)}</td>
+              <td>{item.jerk}</td>
+              <td>{item.rank_cj}</td>
+
+              <td>{item.total}</td>
+              <td>{item.rank}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
