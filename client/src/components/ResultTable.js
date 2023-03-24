@@ -10,9 +10,11 @@ import {
 } from "@tanstack/react-table";
 
 function strikeThroughColumn(str) {
-  return str.includes("<strike>") && str.includes("</strike>")
-    ? <strike>{str.replace("<strike>", "").replace("</strike>", "")}</strike>
-    : str;
+  return str.includes("<strike>") && str.includes("</strike>") ? (
+    <strike>{str.replace("<strike>", "").replace("</strike>", "")}</strike>
+  ) : (
+    str
+  );
 }
 
 const columnHelper = createColumnHelper();
@@ -46,45 +48,62 @@ const columns = [
     ],
   }),
 
-  // Snatch
-  columnHelper.accessor("snatch1", {
-    cell: (info) => strikeThroughColumn(info.getValue()),
-    header: "sn1",
-  }),
-  columnHelper.accessor("snatch2", {
-    cell: (info) => strikeThroughColumn(info.getValue()),
-    header: "sn2",
-  }),
-  columnHelper.accessor("snatch3", {
-    cell: (info) => strikeThroughColumn(info.getValue()),
-    header: "sn3",
-  }),
-  columnHelper.accessor("snatch", {
-    cell: (info) => strikeThroughColumn(info.getValue()),
-  }),
-  columnHelper.accessor("rank_sn", {
-    cell: (info) => info.getValue(),
-  }),
-
-  // Clean and Jerk
-  columnHelper.accessor("jerk1", {
-    cell: (info) => strikeThroughColumn(info.getValue()),
-    header: "cj1",
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor("jerk2", {  
-    cell: (info) => strikeThroughColumn(info.getValue()),
-    header: "cj2",
-  }),
-  columnHelper.accessor("jerk3", {
-    cell: (info) => strikeThroughColumn(info.getValue()),
-    header: "cj3",
-  }),
-  columnHelper.accessor("jerk", {
-    cell: (info) => strikeThroughColumn(info.getValue()),
-  }),
-  columnHelper.accessor("rank_cj", {
-    cell: (info) => info.getValue(),
+  columnHelper.group({
+    id: "Info",
+    header: () => <h1>Competition Lifts</h1>,
+    columns: [
+      columnHelper.group({
+        id: "Info",
+        header: () => <h1>Snatch</h1>,
+        columns: [
+          // Snatch
+          columnHelper.accessor("snatch1", {
+            cell: (info) => strikeThroughColumn(info.getValue()),
+            header: "sn1",
+          }),
+          columnHelper.accessor("snatch2", {
+            cell: (info) => strikeThroughColumn(info.getValue()),
+            header: "sn2",
+          }),
+          columnHelper.accessor("snatch3", {
+            cell: (info) => strikeThroughColumn(info.getValue()),
+            header: "sn3",
+          }),
+          columnHelper.accessor("snatch", {
+            cell: (info) => strikeThroughColumn(info.getValue()),
+          }),
+          columnHelper.accessor("rank_sn", {
+            cell: (info) => info.getValue(),
+          }),
+        ],
+      }),
+      columnHelper.group({
+        id: "Info",
+        header: () => <h1>Clean and Jerk</h1>,
+        columns: [
+          // Clean and Jerk
+          columnHelper.accessor("jerk1", {
+            cell: (info) => strikeThroughColumn(info.getValue()),
+            header: "cj1",
+            footer: (info) => info.column.id,
+          }),
+          columnHelper.accessor("jerk2", {
+            cell: (info) => strikeThroughColumn(info.getValue()),
+            header: "cj2",
+          }),
+          columnHelper.accessor("jerk3", {
+            cell: (info) => strikeThroughColumn(info.getValue()),
+            header: "cj3",
+          }),
+          columnHelper.accessor("jerk", {
+            cell: (info) => strikeThroughColumn(info.getValue()),
+          }),
+          columnHelper.accessor("rank_cj", {
+            cell: (info) => info.getValue(),
+          }),
+        ],
+      }),
+    ],
   }),
 
   // Total
