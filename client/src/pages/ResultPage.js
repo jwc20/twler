@@ -4,6 +4,7 @@ import axios from "axios";
 import { useParams, useNavigate, generatePath } from "react-router-dom";
 
 import ResultTable from "../components/ResultTable";
+import EventInfoTable from "../components/EventInfoTable.js";
 
 function ResultPage() {
   const [result, setResult] = useState([]);
@@ -14,8 +15,6 @@ function ResultPage() {
   const navigate = useNavigate();
 
   const url = `http://localhost:8000/api/events/${id}`;
-  // console.log(url);
-
 
   useEffect(() => {
     const getEventInfo = async () => {
@@ -32,23 +31,23 @@ function ResultPage() {
     getEventInfo();
   }, []);
 
-
-
   return (
-    <div className="result-page">
-      <h1>This is the Result Page.</h1>
-      {id}
-      <p>Test</p>
-      <li>{eventInfo.name}</li>
-      <li>{eventInfo.location}</li>
-      <li>{eventInfo.date}</li>
-      <li>{eventInfo.event_url}</li>
-      <li>{eventInfo.cid}</li>
+    <div className="m-10">
+      <div className="flex justify-center items-center">
+        <EventInfoTable className="mx-auto" eventInfo={eventInfo} />
+      </div>
 
       <br />
+
       <hr className="dashed"></hr>
 
-      <ResultTable cid={eventInfo.cid} name={eventInfo.name} />
+      <div className="flex justify-center items-center">
+        <ResultTable
+          className="mx-auto"
+          cid={eventInfo.cid}
+          name={eventInfo.name}
+        />
+      </div>
     </div>
   );
 }
