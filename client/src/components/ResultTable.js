@@ -1,6 +1,8 @@
 import { useState, useEffect, useReducer } from "react";
 import axios from "axios";
 
+import { useTable } from "react-table"
+
 import {
   ColumnDef,
   createColumnHelper,
@@ -123,16 +125,19 @@ function ResultTable({ name, cid }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [url, setUrl] = useState("");
-
   const [data, setData] = useState([]);
 
   // tanstack table
   const rerender = useReducer(() => ({}), {})[1];
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
+
+  const groupedByCategoryData = data.reduce((groups, item) => {
+    const category = item.category;
+    groups[category] = groups[category] || [];
+    groups[category].push(item);
+    return groups;
+  }, {});
+
+
 
   useEffect(() => {
     let timer;
@@ -165,47 +170,66 @@ function ResultTable({ name, cid }) {
     setUrl(builtUrl);
   }, [cid]);
 
+  // console.log(groupedByCategoryData);
 
-  const groupByCategory = data.reduce((groups, item) => {
-    const category = item.category;
-    groups[category] = groups[category] || []; 
-    groups[category].push(item); 
-    return groups;
-  }, {})
-  // console.log(groupByCategory)
+  // for (const key in groupedByCategoryData) {
+  //   if (Object.hasOwnProperty.call(groupedByCategoryData, key)) {
+  //     const categoryData = groupedByCategoryData[key];
+  //     // console.log(`category: ${key}: ${categoryData.length} objects`);
+  //     // console.log(categoryData);
+  //   }
+  // }
+
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
+  
+
+  console.log(Object.keys(groupedByCategoryData));
 
   return (
     <div className="my-10">
-      <table>
-        <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th key={header.id} colSpan={header.colSpan}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
+      {Object.keys(groupedByCategoryData).map((category) => (
+        <div key={category}>
+          <h3>Category {category}</h3>
 
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
+          <table>
+            <thead>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <th key={header.id} colSpan={header.colSpan}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </th>
+                  ))}
+                </tr>
               ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+            </thead>
+
+            <tbody>
+              {table.getRowModel().rows.map((row) => (
+                <tr key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <td key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ))}
     </div>
   );
 }
