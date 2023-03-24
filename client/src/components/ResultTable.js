@@ -55,7 +55,7 @@ function ResultTable({ name, cid }) {
     setUrl(builtUrl);
   }, [cid]);
 
-  console.log(groupedByCategoryData);
+  // console.log(groupedByCategoryData);
 
   return (
     <div className="my-10">
@@ -96,12 +96,21 @@ function Table({ data }) {
       <table>
         <thead>
           <tr>
+            <th colSpan="5">Information</th>
+            <th colSpan="12">Competition Lifts</th>
+          </tr>
+          <tr>
+            <th colSpan="5"></th>
+            <th colSpan="5">Snatch</th>
+            <th colSpan="5">Clean and Jerk</th>
+            <th colSpan="2">Total</th>
+          </tr>
+          <tr>
             <th>name</th>
             <th>nation</th>
             <th>birthdate</th>
             <th>bodyweight</th>
             <th>group</th>
-            {/* <th>gender</th> */}
 
             <th>snatch1</th>
             <th>snatch2</th>
@@ -172,6 +181,30 @@ function Table({ data }) {
             </tr>
           ))}
         </tbody>
+        <tfoot>
+          <tr>
+            <th>name</th>
+            <th>nation</th>
+            <th>birthdate</th>
+            <th>bodyweight</th>
+            <th>group</th>
+
+            <th>snatch1</th>
+            <th>snatch2</th>
+            <th>snatch3</th>
+            <th>snatch</th>
+            <th>rank_sn</th>
+
+            <th>jerk1</th>
+            <th>jerk2</th>
+            <th>jerk3</th>
+            <th>jerk</th>
+            <th>rank_cj</th>
+
+            <th>total</th>
+            <th>rank</th>
+          </tr>
+        </tfoot>
       </table>
     </div>
   );
