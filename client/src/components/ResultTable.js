@@ -1,7 +1,6 @@
 import { useState, useEffect, useReducer } from "react";
 import axios from "axios";
 
-import { useTable } from "react-table";
 import cx from "classnames";
 
 function strikeThroughColumn(str) {
