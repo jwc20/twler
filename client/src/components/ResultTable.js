@@ -15,7 +15,7 @@ function strikeThroughColumn(str) {
 function ResultTable({ name, cid }) {
   const [result, setResult] = useState([]);
   const [eventInfo, setEventInfo] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [url, setUrl] = useState("");
   const [data, setData] = useState([]);
@@ -59,25 +59,33 @@ function ResultTable({ name, cid }) {
 
   return (
     <div className="my-10">
-      {Object.keys(groupedByCategoryData).map((category) => (
-        <div className="pb-5" key={category}>
-          {["Women", "Men"].map((gender) => {
-            const filteredData = groupedByCategoryData[category].filter(
-              (item) => item.gender === gender
-            );
-            if (filteredData.length > 0) {
-              return (
-                <div key={gender}>
-                  <b><h3>{category} - {gender}</h3></b>
-                  <Table data={filteredData} />
-                </div>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        Object.keys(groupedByCategoryData).map((category) => (
+          <div className="pb-5" key={category}>
+            {["Women", "Men"].map((gender) => {
+              const filteredData = groupedByCategoryData[category].filter(
+                (item) => item.gender === gender
               );
-            } else {
-              return null;
-            }
-          })}
-        </div>
-      ))}
+              if (filteredData.length > 0) {
+                return (
+                  <div key={gender}>
+                    <b>
+                      <h3>
+                        {category} - {gender}
+                      </h3>
+                    </b>
+                    <Table data={filteredData} />
+                  </div>
+                );
+              } else {
+                return null;
+              }
+            })}
+          </div>
+        ))
+      )}
     </div>
   );
 }
