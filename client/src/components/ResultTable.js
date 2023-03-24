@@ -66,12 +66,27 @@ function ResultTable({ name, cid }) {
     setUrl(builtUrl);
   }, [cid]);
 
+  console.log(groupedByCategoryData);
+
   return (
     <div className="my-10">
       {Object.keys(groupedByCategoryData).map((category) => (
-        <div key={category}>
-          <h2>{category}</h2>
-          <Table data={groupedByCategoryData[category]} />
+        <div className="pb-5" key={category}>
+          {["Women", "Men"].map((gender) => {
+            const filteredData = groupedByCategoryData[category].filter(
+              (item) => item.gender === gender
+            );
+            if (filteredData.length > 0) {
+              return (
+                <div key={gender}>
+                  <b><h3>{category} - {gender}</h3></b>
+                  <Table data={filteredData} />
+                </div>
+              );
+            } else {
+              return null;
+            }
+          })}
         </div>
       ))}
     </div>
