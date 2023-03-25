@@ -7,7 +7,7 @@ import ResultPage from "./pages/ResultPage";
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Router>
         <Routes>
           <Route exact path="/" element={<HomePage />}></Route>
