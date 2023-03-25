@@ -1,33 +1,36 @@
 import { useState, useEffect } from "react";
 
 function EventInfoTable({ eventInfo }) {
-  // Error Ignore: Warning: validateDOMNesting(...): Text nodes cannot appear as a child of <tr>.
-
   return (
     <div>
       <table className="table-fixed">
         <thead className="border-b border-light-gray text-center">
-          <tr className="font-bold">{eventInfo.name}</tr>
+          {/* <tr className="font-bold">{eventInfo.name}</tr> */}
+          <tr>
+            <td>
+              <span className="font-bold">{eventInfo.name}</span>
+            </td>
+          </tr>
         </thead>
         <tbody>
           <tr>
             <td>
-              <strong>Date</strong>: {eventInfo.date}
+              <span className="font-bold">Date:</span> {eventInfo.date}
             </td>
           </tr>
           <tr>
             <td>
-              <strong>Location</strong>: {eventInfo.location}
+              <span className="font-bold">Location:</span> {eventInfo.location}
             </td>
           </tr>
           <tr>
             <td>
-              <strong>URL</strong>: {eventInfo.event_url}
+              <span className="font-bold">URL:</span> {eventInfo.event_url}
             </td>
           </tr>
           <tr>
             <td>
-              <strong>CID</strong>: {eventInfo.cid}
+              <span className="font-bold">CID:</span> {eventInfo.cid}
             </td>
           </tr>
         </tbody>
