@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-// import * as IPFS from "ipfs-core";
 import axios from "axios";
 import { useParams, useNavigate, generatePath } from "react-router-dom";
 
