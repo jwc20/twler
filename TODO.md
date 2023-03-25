@@ -4,12 +4,12 @@
 
 #### High Priority
 
+- Create tables for EventsPage.
+
 - Create a component to organize table.
   - Create dropdown menu for tables.
   - Add sorting, filtering, and etc.
   - Add more columns options (age, sinclair coefficient, robi points. and etc. )
-- In event info table, update url to give full url.
-  - new vs old weight category urls.
 - Create a better frontend
   - Add charts.
 
@@ -22,6 +22,8 @@
   - Rename the file.
 - (Backend) If the result object contains ranks that is only "---" or "DSQ", update the data accordingly.
 - (Backend) Separate last and first name.
+- (Backend) In event info table, update url to give full url.
+  - new vs old weight category urls.
 - Figure out divide-and-conquer method for scheduling scraper.
 - Create a scheduler on netlify.
 - Delete django apps that is not being used.
