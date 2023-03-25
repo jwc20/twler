@@ -4,19 +4,21 @@
 
 #### High Priority
 
-- Create tables for EventsPage.
-
 - Create a component to organize table.
+
   - Create dropdown menu for tables.
   - Add sorting, filtering, and etc.
+    - (Bug) In 2022 IWF World Championships 55kg Men category (and other category), the data with "---" stays in position when sorting.
+        - (This might be fixable by changing the backend.)
   - Add more columns options (age, sinclair coefficient, robi points. and etc. )
-- Create a better frontend
-  - Add charts.
+
+- Add charts.
 
 ---
 
 ###### Backlog
 
+- Create button to export result as csv file.
 - Create tests for scraper and ipfs files.
 - Put ipfs.py in api directory.
   - Rename the file.
@@ -35,6 +37,7 @@
 
 ## Completed
 
+- Create tables for EventsPage.
 - Create a better frontend
   - Add tables.
   - Create loading indicator to ResultTable.js.
