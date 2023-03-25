@@ -17,7 +17,14 @@ function EventTable({ events, isError }) {
             events.map((item, index) => (
               <tr key={item.id}>
                 <td>{events.length - index}</td>
-                <td>{item.name}</td>
+                <td>
+                  <a
+                    href={`http://localhost:3000/result/${item.id}`}
+                    className="text-blue-600 hover:text-blue-500 focus:text-purple-600 visited:text-purple-800"
+                  >
+                    {item.name}
+                  </a>
+                </td>
                 <td>{item.location}</td>
                 <td>{item.date}</td>
                 <td>{item.event_url}</td>
