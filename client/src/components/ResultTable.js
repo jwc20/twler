@@ -149,8 +149,15 @@ function Table({ data }) {
               >
                 {item.snatch}
               </td>
-
-              <td>{item.rank_sn}</td>
+              <td
+                className={cx(
+                  item.rank_sn === "1" ? "bg-yellow-300" : "",
+                  item.rank_sn === "2" ? "bg-gray-300" : "",
+                  item.rank_sn === "3" ? "bg-yellow-600" : ""
+                )}
+              >
+                {item.rank_sn}
+              </td>
 
               <td>{strikeThroughColumn(item.jerk1)}</td>
               <td>{strikeThroughColumn(item.jerk2)}</td>
@@ -164,8 +171,15 @@ function Table({ data }) {
               >
                 {item.jerk}
               </td>
-
-              <td>{item.rank_cj}</td>
+              <td
+                className={cx(
+                  item.rank_cj === "1" ? "bg-yellow-300" : "",
+                  item.rank_cj === "2" ? "bg-gray-300" : "",
+                  item.rank_cj === "3" ? "bg-yellow-600" : ""
+                )}
+              >
+                {item.rank_cj}
+              </td>
 
               <td
                 className={cx(
@@ -176,7 +190,16 @@ function Table({ data }) {
               >
                 {item.total}
               </td>
-              <td>{item.rank}</td>
+
+              <td
+                className={cx(
+                  item.rank === "1" ? "bg-yellow-300" : "",
+                  item.rank === "2" ? "bg-gray-300" : "",
+                  item.rank === "3" ? "bg-yellow-600" : ""
+                )}
+              >
+                {item.rank}
+              </td>
             </tr>
           ))}
         </tbody>
