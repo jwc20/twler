@@ -1,60 +1,219 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState } from "react";
 
-function ResultTable({ name, cid }) {
-  const [result, setResult] = useState([]);
-  const [eventInfo, setEventInfo] = useState();
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  // const url = "http://localhost:8000/api/example-ipfs-json/";
-  // const url = "http://localhost:8000/api/ipfs/" + cid + "/";
+import cx from "classnames";
 
-  const [url, setUrl] = useState("");
+function strikeThroughColumn(str) {
+  return str.includes("<strike>") && str.includes("</strike>") ? (
+    <strike>{str.replace("<strike>", "").replace("</strike>", "")}</strike>
+  ) : (
+    str
+  );
+}
+function ResultTable({ data }) {
+  const [sortType, setSortType] = useState("asc");
+  const [sortColumn, setSortColumn] = useState(null);
 
-  useEffect(() => {
-    let timer;
-    const getResult = async () => {
-      try {
-        timer = setTimeout(() => {
-          console.log(url);
-          axios.get(url).then((response) => {
-            setResult(response.data);
-            setIsLoading(false);
-          });
-          // console.log(response.data);
-          // console.log(typeof response.data)
-        }, 5000);
-      } catch (error) {
-        setIsLoading(false);
-        setIsError(true);
-        console.log(error);
-      }
-    };
-    if (cid) {
-      getResult();
+  const handleSort = (column) => {
+    setSortType((prevSortType) => (prevSortType === "asc" ? "desc" : "asc"));
+    setSortColumn(column);
+  };
+
+  const sortedData = [...data].sort((a, b) => {
+
+    const aRank = a[sortColumn] === "---" ? Infinity : Number(a[sortColumn])
+    const bRank = b[sortColumn] === "---" ? Infinity : Number(b[sortColumn])
+
+
+    if (sortColumn === "rank") {
+      // return sortType === "asc" ? a.rank - b.rank : b.rank - a.rank;
+      return sortType === "asc" ? aRank - bRank : bRank - aRank;
+    } else if (sortColumn === "rank_cj") {
+      return sortType === "asc" ? aRank - bRank : bRank - aRank;
+    } else if (sortColumn === "rank_sn") {
+      return sortType === "asc" ? aRank - bRank : bRank - aRank;
+    } else if (sortColumn === "bodyweight") {
+      return sortType === "asc"
+        ? a.bodyweight - b.bodyweight
+        : b.bodyweight - a.bodyweight;
+    } else if (sortColumn === "birthdate") {
+      const aDate = new Date(a.birthdate.replace(/,/g, ""));
+      const bDate = new Date(b.birthdate.replace(/,/g, ""));
+      return sortType === "asc" ? aDate - bDate : bDate - aDate;
+    } else if (sortColumn === "name") {
+      return sortType === "asc"
+        ? a.name.localeCompare(b.name)
+        : b.name.localeCompare(a.name);
+    } else if (sortColumn === "group") {
+      return sortType === "asc"
+        ? a.group.localeCompare(b.group)
+        : b.group.localeCompare(a.group);
     }
-  }, [url]);
-
-  useEffect(() => {
-    const builtUrl = `http://localhost:8000/api/ipfs/${cid}`;
-    console.log(builtUrl)
-    setUrl(builtUrl);
-  }, [cid]);
-
+    return 0;
+  });
 
   return (
-    <div className="result-table">
-      <h2>{name}</h2>
-      <p>{cid}</p>
-      {result &&
-        result.map((item, index) => (
-          // The items need a key that is not the name.
-          <div key={item.name}>
-            <li>
-              {item.name} {item.snatch} {item.jerk} {item.rank}
-            </li>
-          </div>
-        ))}
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th colSpan="5">Information</th>
+            <th colSpan="12">Competition Lifts</th>
+          </tr>
+          <tr>
+            <th colSpan="5"></th>
+            <th colSpan="5">Snatch</th>
+            <th colSpan="5">Clean and Jerk</th>
+            <th colSpan="2">Total</th>
+          </tr>
+          <tr>
+            {/* <th>name</th> */}
+            <th onClick={() => handleSort("name")}>
+              name {sortColumn === "name" && sortType === "asc" ? "" : ""}
+            </th>
+            <th>nation</th>
+            {/* <th>birthdate</th> */}
+            <th onClick={() => handleSort("birthdate")}>
+              birthdate{" "}
+              {sortColumn === "birthdate" && sortType === "asc" ? "" : ""}
+            </th>
+            {/* <th>bodyweight</th> */}
+            <th onClick={() => handleSort("bodyweight")}>
+              bodyweight{" "}
+              {sortColumn === "bodyweight" && sortType === "asc" ? "" : ""}
+            </th>
+            {/* <th>group</th> */}
+            <th onClick={() => handleSort("group")}>
+              group{" "}
+              {sortColumn === "group" && sortType === "asc" ? "" : ""}
+            </th>
+
+            <th>snatch1</th>
+            <th>snatch2</th>
+            <th>snatch3</th>
+            <th>snatch</th>
+            {/* <th>rank_sn</th> */}
+            <th onClick={() => handleSort("rank_sn")}>
+              rank_sn{" "}
+              {sortColumn === "rank_sn" && sortType === "asc" ? "" : ""}
+            </th>
+
+            <th>jerk1</th>
+            <th>jerk2</th>
+            <th>jerk3</th>
+            <th>jerk</th>
+            {/* <th>rank_cj</th> */}
+            <th onClick={() => handleSort("rank_cj")}>
+              rank_cj{" "}
+              {sortColumn === "rank_cj" && sortType === "asc" ? "" : ""}
+            </th>
+
+            <th>total</th>
+            <th onClick={() => handleSort("rank")}>
+              rank {sortColumn === "rank" && sortType === "asc" ? "" : ""}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedData.map((item, index) => (
+            <tr key={index}>
+              <td>{item.name}</td>
+              <td>{item.nation}</td>
+              <td>{item.birthdate}</td>
+              <td>{item.bodyweight}</td>
+              <td>{item.group}</td>
+              {/* <td>{item.gender}</td> */}
+
+              <td>{strikeThroughColumn(item.snatch1)}</td>
+              <td>{strikeThroughColumn(item.snatch2)}</td>
+              <td>{strikeThroughColumn(item.snatch3)}</td>
+              <td
+                className={cx(
+                  item.rank_sn === "1" ? "bg-yellow-300" : "",
+                  item.rank_sn === "2" ? "bg-gray-300" : "",
+                  item.rank_sn === "3" ? "bg-yellow-600" : ""
+                )}
+              >
+                {item.snatch}
+              </td>
+              <td
+                className={cx(
+                  item.rank_sn === "1" ? "bg-yellow-300" : "",
+                  item.rank_sn === "2" ? "bg-gray-300" : "",
+                  item.rank_sn === "3" ? "bg-yellow-600" : ""
+                )}
+              >
+                {item.rank_sn}
+              </td>
+
+              <td>{strikeThroughColumn(item.jerk1)}</td>
+              <td>{strikeThroughColumn(item.jerk2)}</td>
+              <td>{strikeThroughColumn(item.jerk3)}</td>
+              <td
+                className={cx(
+                  item.rank_cj === "1" ? "bg-yellow-300" : "",
+                  item.rank_cj === "2" ? "bg-gray-300" : "",
+                  item.rank_cj === "3" ? "bg-yellow-600" : ""
+                )}
+              >
+                {item.jerk}
+              </td>
+              <td
+                className={cx(
+                  item.rank_cj === "1" ? "bg-yellow-300" : "",
+                  item.rank_cj === "2" ? "bg-gray-300" : "",
+                  item.rank_cj === "3" ? "bg-yellow-600" : ""
+                )}
+              >
+                {item.rank_cj}
+              </td>
+
+              <td
+                className={cx(
+                  item.rank === "1" ? "bg-yellow-300" : "",
+                  item.rank === "2" ? "bg-gray-300" : "",
+                  item.rank === "3" ? "bg-yellow-600" : ""
+                )}
+              >
+                {item.total}
+              </td>
+
+              <td
+                className={cx(
+                  item.rank === "1" ? "bg-yellow-300" : "",
+                  item.rank === "2" ? "bg-gray-300" : "",
+                  item.rank === "3" ? "bg-yellow-600" : ""
+                )}
+              >
+                {item.rank}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>name</th>
+            <th>nation</th>
+            <th>birthdate</th>
+            <th>bodyweight</th>
+            <th>group</th>
+
+            <th>snatch1</th>
+            <th>snatch2</th>
+            <th>snatch3</th>
+            <th>snatch</th>
+            <th>rank_sn</th>
+
+            <th>jerk1</th>
+            <th>jerk2</th>
+            <th>jerk3</th>
+            <th>jerk</th>
+            <th>rank_cj</th>
+
+            <th>total</th>
+            <th>rank</th>
+          </tr>
+        </tfoot>
+      </table>
     </div>
   );
 }
