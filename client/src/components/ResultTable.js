@@ -19,12 +19,18 @@ function ResultTable({ data }) {
   };
 
   const sortedData = [...data].sort((a, b) => {
+
+    const aRank = a[sortColumn] === "---" ? Infinity : Number(a[sortColumn])
+    const bRank = b[sortColumn] === "---" ? Infinity : Number(b[sortColumn])
+
+
     if (sortColumn === "rank") {
-      return sortType === "asc" ? a.rank - b.rank : b.rank - a.rank;
+      // return sortType === "asc" ? a.rank - b.rank : b.rank - a.rank;
+      return sortType === "asc" ? aRank - bRank : bRank - aRank;
     } else if (sortColumn === "rank_cj") {
-      return sortType === "asc" ? a.rank_cj - b.rank_cj : b.rank_cj - a.rank_cj;
+      return sortType === "asc" ? aRank - bRank : bRank - aRank;
     } else if (sortColumn === "rank_sn") {
-      return sortType === "asc" ? a.rank_sn - b.rank_sn : b.rank_sn - a.rank_sn;
+      return sortType === "asc" ? aRank - bRank : bRank - aRank;
     } else if (sortColumn === "bodyweight") {
       return sortType === "asc"
         ? a.bodyweight - b.bodyweight
