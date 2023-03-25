@@ -1,5 +1,4 @@
-import { useState, useEffect, useReducer } from "react";
-import axios from "axios";
+import { useState } from "react";
 
 import cx from "classnames";
 
@@ -10,86 +9,38 @@ function strikeThroughColumn(str) {
     str
   );
 }
+function ResultTable({ data }) {
+  const [sortType, setSortType] = useState("asc");
+  const [sortColumn, setSortColumn] = useState(null);
 
-function ResultTable({ name, cid }) {
-  const [result, setResult] = useState([]);
-  const [eventInfo, setEventInfo] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
-  const [url, setUrl] = useState("");
-  const [data, setData] = useState([]);
+  const handleSort = (column) => {
+    setSortType((prevSortType) => (prevSortType === "asc" ? "desc" : "asc"));
+    setSortColumn(column);
+  };
 
-  const groupedByCategoryData = data.reduce((groups, item) => {
-    const category = item.category;
-    groups[category] = groups[category] || [];
-    groups[category].push(item);
-    return groups;
-  }, {});
-
-  useEffect(() => {
-    let timer;
-    const getResult = async () => {
-      try {
-        timer = setTimeout(() => {
-          axios.get(url).then((response) => {
-            setResult(response.data);
-            setData([...response.data]);
-            setIsLoading(false);
-          });
-        }, 5000);
-      } catch (error) {
-        setIsLoading(false);
-        setIsError(true);
-        console.log(error);
-      }
-    };
-    if (cid) {
-      getResult();
+  const sortedData = [...data].sort((a, b) => {
+    if (sortColumn === "rank") {
+      return sortType === "asc" ? a.rank - b.rank : b.rank - a.rank;
+    } else if (sortColumn === "rank_cj") {
+      return sortType === "asc" ? a.rank_cj - b.rank_cj : b.rank_cj - a.rank_cj;
+    } else if (sortColumn === "rank_sn") {
+      return sortType === "asc" ? a.rank_sn - b.rank_sn : b.rank_sn - a.rank_sn;
+    } else if (sortColumn === "bodyweight") {
+      return sortType === "asc"
+        ? a.bodyweight - b.bodyweight
+        : b.bodyweight - a.bodyweight;
+    } else if (sortColumn === "birthdate") {
+      const aDate = new Date(a.birthdate.replace(/,/g, ""));
+      const bDate = new Date(b.birthdate.replace(/,/g, ""));
+      return sortType === "asc" ? aDate - bDate : bDate - aDate;
+    } else if (sortColumn === "name") {
+      return sortType === "asc"
+        ? a.name.localeCompare(b.name)
+        : b.name.localeCompare(a.name);
     }
-  }, [url]);
+    return 0;
+  });
 
-  useEffect(() => {
-    const builtUrl = `http://localhost:8000/api/ipfs/${cid}`;
-    // console.log(builtUrl);
-    setUrl(builtUrl);
-  }, [cid]);
-
-  // console.log(groupedByCategoryData);
-
-  return (
-    <div className="my-10">
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        Object.keys(groupedByCategoryData).map((category) => (
-          <div className="pb-5" key={category}>
-            {["Women", "Men"].map((gender) => {
-              const filteredData = groupedByCategoryData[category].filter(
-                (item) => item.gender === gender
-              );
-              if (filteredData.length > 0) {
-                return (
-                  <div key={gender}>
-                    <b>
-                      <h3>
-                        {category} - {gender}
-                      </h3>
-                    </b>
-                    <Table data={filteredData} />
-                  </div>
-                );
-              } else {
-                return null;
-              }
-            })}
-          </div>
-        ))
-      )}
-    </div>
-  );
-}
-
-function Table({ data }) {
   return (
     <div>
       <table>
@@ -105,30 +56,51 @@ function Table({ data }) {
             <th colSpan="2">Total</th>
           </tr>
           <tr>
-            <th>name</th>
+            {/* <th>name</th> */}
+            <th onClick={() => handleSort("name")}>
+              name {sortColumn === "name" && sortType === "asc" ? "" : ""}
+            </th>
             <th>nation</th>
-            <th>birthdate</th>
-            <th>bodyweight</th>
+            {/* <th>birthdate</th> */}
+            <th onClick={() => handleSort("birthdate")}>
+              birthdate{" "}
+              {sortColumn === "birthdate" && sortType === "asc" ? "" : ""}
+            </th>
+            {/* <th>bodyweight</th> */}
+            <th onClick={() => handleSort("bodyweight")}>
+              bodyweight{" "}
+              {sortColumn === "bodyweight" && sortType === "asc" ? "" : ""}
+            </th>
             <th>group</th>
 
             <th>snatch1</th>
             <th>snatch2</th>
             <th>snatch3</th>
             <th>snatch</th>
-            <th>rank_sn</th>
+            {/* <th>rank_sn</th> */}
+            <th onClick={() => handleSort("rank_sn")}>
+              rank_sn{" "}
+              {sortColumn === "rank_sn" && sortType === "asc" ? "" : ""}
+            </th>
 
             <th>jerk1</th>
             <th>jerk2</th>
             <th>jerk3</th>
             <th>jerk</th>
-            <th>rank_cj</th>
+            {/* <th>rank_cj</th> */}
+            <th onClick={() => handleSort("rank_cj")}>
+              rank_cj{" "}
+              {sortColumn === "rank_cj" && sortType === "asc" ? "" : ""}
+            </th>
 
             <th>total</th>
-            <th>rank</th>
+            <th onClick={() => handleSort("rank")}>
+              rank {sortColumn === "rank" && sortType === "asc" ? "" : ""}
+            </th>
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index) => (
+          {sortedData.map((item, index) => (
             <tr key={index}>
               <td>{item.name}</td>
               <td>{item.nation}</td>
