@@ -43,6 +43,10 @@ function ResultTable({ data }) {
       return sortType === "asc"
         ? a.name.localeCompare(b.name)
         : b.name.localeCompare(a.name);
+    } else if (sortColumn === "group") {
+      return sortType === "asc"
+        ? a.group.localeCompare(b.group)
+        : b.group.localeCompare(a.group);
     }
     return 0;
   });
@@ -77,7 +81,11 @@ function ResultTable({ data }) {
               bodyweight{" "}
               {sortColumn === "bodyweight" && sortType === "asc" ? "" : ""}
             </th>
-            <th>group</th>
+            {/* <th>group</th> */}
+            <th onClick={() => handleSort("group")}>
+              group{" "}
+              {sortColumn === "group" && sortType === "asc" ? "" : ""}
+            </th>
 
             <th>snatch1</th>
             <th>snatch2</th>
