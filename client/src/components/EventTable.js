@@ -5,18 +5,24 @@ function EventTable({ events, isError }) {
         <thead>
           <tr>
             <th>#</th>
-            <th>Name</th>
-            <th>Location</th>
             <th>Date</th>
-            <th>Event URL</th>
-            <th>CID</th>
+            <th>Location</th>
+            <th>Name</th>
+
+            {/* <th>Event URL</th> */}
+            {/* <th>CID</th> */}
           </tr>
         </thead>
         <tbody>
           {events &&
             events.map((item, index) => (
-              <tr key={item.id}>
+              <tr
+                key={item.id}
+                className={`${index % 2 === 0 ? "bg-white" : "bg-gray-100"}`}
+              >
                 <td>{events.length - index}</td>
+                <td>{item.date}</td>
+                <td>{item.location}</td>
                 <td>
                   <a
                     href={`http://localhost:3000/result/${item.id}`}
@@ -25,10 +31,9 @@ function EventTable({ events, isError }) {
                     {item.name}
                   </a>
                 </td>
-                <td>{item.location}</td>
-                <td>{item.date}</td>
-                <td>{item.event_url}</td>
-                <td>{item.cid}</td>
+
+                {/* <td>{item.event_url}</td> */}
+                {/* <td>{item.cid}</td> */}
               </tr>
             ))}
           {isError && <div>Error fetching data.</div>}
