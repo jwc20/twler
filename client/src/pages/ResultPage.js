@@ -4,7 +4,7 @@ import axios from "axios";
 import { useParams, useNavigate, generatePath } from "react-router-dom";
 
 import ResultTable from "../components/ResultTable";
-import EventInfoTable from "../components/EventInfoTable.js";
+import EventInfoTable from "../components/EventInfoTable";
 
 function ResultPage() {
   const [result, setResult] = useState([]);
