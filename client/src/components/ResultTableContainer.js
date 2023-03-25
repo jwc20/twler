@@ -51,7 +51,7 @@ function ResultTableContainer({ name, cid }) {
         <div>Loading...</div>
       ) : (
         Object.keys(groupedByCategoryData).map((category) => (
-          <div className="pb-5" key={category}>
+          <div className="py-5" key={category}>
             {["Women", "Men"].map((gender) => {
               const filteredData = groupedByCategoryData[category].filter(
                 (item) => item.gender === gender
