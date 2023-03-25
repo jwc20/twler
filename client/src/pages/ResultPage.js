@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate, generatePath } from "react-router-dom";
 
-import ResultTable from "../components/ResultTable";
+import ResultTableContainer from "../components/ResultTableContainer";
 import EventInfoTable from "../components/EventInfoTable";
 
 function ResultPage() {
@@ -41,7 +41,7 @@ function ResultPage() {
       <hr className="dashed"></hr>
 
       <div className="flex justify-center items-center">
-        <ResultTable
+        <ResultTableContainer
           className="mx-auto"
           cid={eventInfo.cid}
           name={eventInfo.name}
