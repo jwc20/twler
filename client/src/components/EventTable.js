@@ -4,8 +4,8 @@ function EventTable({ events, isError }) {
       <table>
         <thead>
           <tr>
-            <th>#</th>
-            <th>Date</th>
+            <th className="px-4">#</th>
+            <th className="px-10">Date</th>
             <th>Location</th>
             <th>Name</th>
 
@@ -20,9 +20,9 @@ function EventTable({ events, isError }) {
                 key={item.id}
                 className={`${index % 2 === 0 ? "bg-white" : "bg-gray-100"}`}
               >
-                <td>{events.length - index}</td>
-                <td>{item.date}</td>
-                <td>{item.location}</td>
+                <td className="text-center">{events.length - index}</td>
+                <td className="text-center">{item.date}</td>
+                <td className="text-center">{item.location}</td>
                 <td>
                   <a
                     href={`http://localhost:3000/result/${item.id}`}
