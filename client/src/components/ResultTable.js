@@ -47,7 +47,12 @@ function ResultTable({ data }) {
       return sortType === "asc"
         ? a.group.localeCompare(b.group)
         : b.group.localeCompare(a.group);
+    } else if (sortColumn === "nation") {
+      return sortType === "asc"
+        ? a.nation.localeCompare(b.nation)
+        : b.nation.localeCompare(a.nation);
     }
+
     return 0;
   });
 
@@ -67,22 +72,26 @@ function ResultTable({ data }) {
           </tr>
           <tr>
             {/* <th>name</th> */}
-            <th onClick={() => handleSort("name")}>
+            <th className="bg-indigo-50" onClick={() => handleSort("name")}>
               name {sortColumn === "name" && sortType === "asc" ? "" : ""}
             </th>
-            <th>nation</th>
+            {/* <th>nation</th> */}
+            <th className="bg-indigo-50" onClick={() => handleSort("nation")}>
+              nation{" "}
+              {sortColumn === "nation" && sortType === "asc" ? "" : ""}
+            </th>
             {/* <th>birthdate</th> */}
-            <th onClick={() => handleSort("birthdate")}>
+            <th className="bg-indigo-50" onClick={() => handleSort("birthdate")}>
               birthdate{" "}
               {sortColumn === "birthdate" && sortType === "asc" ? "" : ""}
             </th>
             {/* <th>bodyweight</th> */}
-            <th onClick={() => handleSort("bodyweight")}>
+            <th className="bg-indigo-50" onClick={() => handleSort("bodyweight")}>
               bodyweight{" "}
               {sortColumn === "bodyweight" && sortType === "asc" ? "" : ""}
             </th>
             {/* <th>group</th> */}
-            <th onClick={() => handleSort("group")}>
+            <th className="bg-indigo-50" onClick={() => handleSort("group")}>
               group{" "}
               {sortColumn === "group" && sortType === "asc" ? "" : ""}
             </th>
@@ -92,7 +101,7 @@ function ResultTable({ data }) {
             <th>snatch3</th>
             <th>snatch</th>
             {/* <th>rank_sn</th> */}
-            <th onClick={() => handleSort("rank_sn")}>
+            <th className="bg-indigo-50" onClick={() => handleSort("rank_sn")}>
               rank_sn{" "}
               {sortColumn === "rank_sn" && sortType === "asc" ? "" : ""}
             </th>
@@ -102,13 +111,13 @@ function ResultTable({ data }) {
             <th>jerk3</th>
             <th>jerk</th>
             {/* <th>rank_cj</th> */}
-            <th onClick={() => handleSort("rank_cj")}>
+            <th className="bg-indigo-50" onClick={() => handleSort("rank_cj")}>
               rank_cj{" "}
               {sortColumn === "rank_cj" && sortType === "asc" ? "" : ""}
             </th>
 
             <th>total</th>
-            <th onClick={() => handleSort("rank")}>
+            <th className="bg-indigo-50" onClick={() => handleSort("rank")}>
               rank {sortColumn === "rank" && sortType === "asc" ? "" : ""}
             </th>
           </tr>
