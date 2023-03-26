@@ -56,7 +56,7 @@ class EventScraper:
             "cid": hash,
         }
 
-        print(event_info["name"], event_info["result_url"])
+        print(event_info["name"], event_info["result_url"], event_info["cid"])
         self.store_to_database(event_info)
 
     def fetch_new_bodyweight_events_by_year(self, client: Iwf, year: str) -> None:
