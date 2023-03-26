@@ -25,12 +25,27 @@ function EventInfoTable({ eventInfo }) {
           </tr>
           <tr>
             <td>
-              <span className="font-bold">URL:</span> {eventInfo.event_url}
+              <span className="font-bold">URL:</span>
+              <a
+                href={eventInfo.event_url}
+                className="text-blue-600 hover:text-blue-500 focus:text-purple-600 visited:text-purple-800"
+              >
+                {" "}
+                {eventInfo.event_url}
+              </a>
             </td>
           </tr>
           <tr>
             <td>
-              <span className="font-bold">CID:</span> {eventInfo.cid}
+              <span className="font-bold">CID:</span>
+              <a
+                href={"https://ipfs.io/ipfs/" + eventInfo.cid + "/"}
+                className="text-blue-600 hover:text-blue-500 focus:text-purple-600 visited:text-purple-800"
+              >
+                {" "}
+                {eventInfo.cid}
+              </a>
+              {/* https://ipfs.io/ipfs/QmVGGsGDtWv9Cm5q5zo3R39d8roZj52pPdWyyof8n5Z6PP/ */}
             </td>
           </tr>
         </tbody>

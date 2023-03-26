@@ -2,6 +2,7 @@ import { useState, useEffect, useReducer } from "react";
 import axios from "axios";
 
 import ResultTable from "./ResultTable.js";
+import ResultFilter from "./ResultFilter.js";
 
 function ResultTableContainer({ name, cid }) {
   const [result, setResult] = useState([]);
@@ -10,6 +11,11 @@ function ResultTableContainer({ name, cid }) {
   const [isError, setIsError] = useState(false);
   const [url, setUrl] = useState("");
   const [data, setData] = useState([]);
+  const [selectedGender, setSelectedGender] = useState("Men");
+
+  const handleGenderSelected = (gender) => {
+    setSelectedGender(gender);
+  };
 
   const groupedByCategoryData = data.reduce((groups, item) => {
     const category = item.category;
@@ -46,22 +52,27 @@ function ResultTableContainer({ name, cid }) {
   }, [cid]);
 
   return (
-    <div>
+    <div className="pt-5">
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        Object.keys(groupedByCategoryData).map((category) => (
-          <div className="py-5" key={category}>
-            {["Women", "Men"].map((gender) => {
+        <>
+          <ResultFilter
+            onGenderSelected={handleGenderSelected}
+            selectedGender={selectedGender}
+          />
+
+          {Object.keys(groupedByCategoryData).map((category) => {
+            if (["Men", "Women"].includes(selectedGender)) {
               const filteredData = groupedByCategoryData[category].filter(
-                (item) => item.gender === gender
+                (item) => item.gender === selectedGender
               );
               if (filteredData.length > 0) {
                 return (
-                  <div key={gender}>
+                  <div className="py-5" key={category}>
                     <b>
                       <h3>
-                        {category} - {gender}
+                        {category} - {selectedGender}
                       </h3>
                     </b>
                     <ResultTable data={filteredData} />
@@ -70,9 +81,35 @@ function ResultTableContainer({ name, cid }) {
               } else {
                 return null;
               }
-            })}
-          </div>
-        ))
+            } else if (selectedGender === "Both") {
+              return (
+                <div className="py-5" key={category}>
+                  {["Men", "Women"].map((gender) => {
+                    const filteredData = groupedByCategoryData[category].filter(
+                      (item) => item.gender === gender
+                    );
+                    if (filteredData.length > 0) {
+                      return (
+                        <div key={gender}>
+                          <b>
+                            <h3>
+                              {category} - {gender}
+                            </h3>
+                          </b>
+                          <ResultTable data={filteredData} />
+                        </div>
+                      );
+                    } else {
+                      return null;
+                    }
+                  })}
+                </div>
+              );
+            } else {
+              return null;
+            }
+          })}
+        </>
       )}
     </div>
   );
