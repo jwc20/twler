@@ -25,7 +25,13 @@ function EventInfoTable({ eventInfo }) {
           </tr>
           <tr>
             <td>
-              <span className="font-bold">URL:</span> {eventInfo.event_url}
+              <span className="font-bold">URL:</span>
+              <a
+                href={eventInfo.event_url}
+                className="text-blue-600 hover:text-blue-500 focus:text-purple-600 visited:text-purple-800"
+              >
+                {eventInfo.event_url}
+              </a>
             </td>
           </tr>
           <tr>
