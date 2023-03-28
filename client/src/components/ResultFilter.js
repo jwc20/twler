@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 function ResultFilter({ onGenderSelected, selectedGender }) {
   const handleGenderChange = (e) => {
     onGenderSelected(e.target.value);
