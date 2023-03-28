@@ -13,9 +13,9 @@
 
 ###### Backlog
 
+- Add caching.
 - Add more columns options (age, sinclair coefficient, robi points. and etc. )
 - Add charts.
-
 - Create button to export result as csv file.
 - Create tests for scraper and ipfs files.
 - Put ipfs.py in api directory.
