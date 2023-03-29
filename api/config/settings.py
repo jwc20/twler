@@ -26,11 +26,6 @@ INSTALLED_APPS = [
     # Local
     "accounts.apps.AccountsConfig",
     "events.apps.EventsConfig",
-    "eventcompetitors.apps.EventcompetitorsConfig",
-    "athletes.apps.AthletesConfig",
-    "bookmarks.apps.BookmarksConfig",
-    "results.apps.ResultsConfig",
-    "records.apps.RecordsConfig",
 ]
 
 AUTH_USER_MODEL = "accounts.CustomUser"
