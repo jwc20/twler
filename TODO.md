@@ -4,13 +4,11 @@
 
 #### High Priority
 
-- Update table on the frontend to display last and first names.
-- Center text in cells for readability.
-
 ---
 
 ###### Backlog
 
+- (Feature) Make search bar for weightlifters.
 - Add caching.
 - Add more columns options (age, sinclair coefficient, robi points. and etc. )
 - Add charts.
@@ -29,6 +27,8 @@
 
 ## Completed
 
+- Update table on the frontend to display last and first names.
+- Center text in cells for readability.
 - (Backend) Separate last and first name.
 - (Backend) If the result object contains ranks that is only "---" or "DSQ", update the data accordingly.
 - (Backend) In event info table, update url to give full url.
