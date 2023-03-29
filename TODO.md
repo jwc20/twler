@@ -4,10 +4,7 @@
 
 #### High Priority
 
-- (Backend) If the result object contains ranks that is only "---" or "DSQ", update the data accordingly.
-- (Backend) Separate last and first name.
-- (Backend) In event info table, update url to give full url.
-  - new vs old weight category urls.
+- Update table on the frontend to display last and first names.
 
 ---
 
@@ -31,13 +28,15 @@
 
 ## Completed
 
+- (Backend) Separate last and first name.
+- (Backend) If the result object contains ranks that is only "---" or "DSQ", update the data accordingly.
+- (Backend) In event info table, update url to give full url.
+  - new vs old weight category urls.
 - Create a component to organize table.
-
   - Create dropdown menu for tables.
   - Add sorting, filtering, and etc.
     - (Bug) In 2022 IWF World Championships 55kg Men category (and other category), the data with "---" stays in position when sorting.
       - (This might be fixable by changing the backend.)
-
 - Create tables for EventsPage.
 - Create a better frontend
   - Add tables.
