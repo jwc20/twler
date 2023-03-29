@@ -4,6 +4,8 @@ import psycopg2
 from pprint import pprint
 import datetime
 from django.core.wsgi import get_wsgi_application
+from django.core.exceptions import ObjectDoesNotExist
+
 import time
 
 ###########################################################
@@ -40,6 +42,16 @@ class EventScraper:
         """
         Fetch result for a single event.
         """
+        # Check if event already exists in the database
+        try:
+            existing_event = Event.objects.get(
+                location=event["location"], event_url=event["result_url"]
+            )
+            print("Event already exists in the database:", existing_event)
+            return
+        except ObjectDoesNotExist:
+            pass
+
         hash = self.get_result_cid(self.fetch_result(event["result_url"]))
 
         date_tuple: Tuple[str, str] = event["date"]
