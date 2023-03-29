@@ -1,12 +1,8 @@
 # twler
 
-![twler_erd_2](./twler-backend-erd-v2.png)
-
-![store_to_ipfs](./store_to_ipfs.png)
-
 ## Installation
 
-In root directory, run the following command to start both React web client and Django restful api.
+In root directory, run the following command to start both React web client and Django api.
 
 ```
 docker-compose up -d --build
@@ -16,7 +12,7 @@ docker-compose up -d --build
 
 - Run `docker-compose down` to stop the docker containers.
 
-#### To create Django superuser, run the following:
+### To create Django superuser, run the following:
 
 ```
 docker-compose exec api python3 manage.py migrate
@@ -25,28 +21,24 @@ docker-compose exec api python3 manage.py createsuperuser
 
 - Visit [Django admin page](http://localhost:8000/admin) and login to superuser.
 
-#### Requirements
+## Requirements
 
-##### Backend
+### Frontend
 
-- django
-- djangorestframework
-- dj-rest-auth
-- allauth
-- django-cors-headers
+- React
 
-##### Scraper
+### Backend
+
+- Django
+
+### Scraper
 
 - request
 - beautifulsoup4
 - lxml
 
-##### IPFS Storage
+### IPFS Storage
 
 (Go to ipfshttpclient library > client > **init**.py and modify VERSION_MAXIMUM to current version.)
 
 - ipfshttpclient
-
-##### Frontend
-
-- react
