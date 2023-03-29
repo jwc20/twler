@@ -5,6 +5,7 @@
 #### High Priority
 
 - Update table on the frontend to display last and first names.
+- Center text in cells for readability.
 
 ---
 
