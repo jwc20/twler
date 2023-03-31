@@ -1,5 +1,9 @@
 # twler
 
+
+https://user-images.githubusercontent.com/99288419/229196030-d37ebadd-2527-4824-9e1c-ba44b7562030.mp4
+
+
 ## Installation
 
 In root directory, run the following command to start both React web client and Django api.
