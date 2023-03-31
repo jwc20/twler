@@ -3,7 +3,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-+ck0eqog*-rpt1v(m!g53y_x0-zfk(oz&y5uy!!1q1ge2z3c=p"
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["52.53.156.182"]
 
 # Application definition
 
@@ -99,7 +99,6 @@ DATABASES = {
 # ITEM_PIPELINES = {
 #    'postgres_demo.pipelines.PostgresDemoPipeline': 300,
 # }
-
 
 
 AUTH_PASSWORD_VALIDATORS = [
