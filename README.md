@@ -34,6 +34,7 @@ docker-compose exec api python3 scrapers/scrape_events.py
 ### Frontend
 
 - React
+- Tailwindcss
 
 ### Backend
 
@@ -47,6 +48,6 @@ docker-compose exec api python3 scrapers/scrape_events.py
 
 ### IPFS Storage
 
-(Go to ipfshttpclient library > client > **init**.py and modify VERSION_MAXIMUM to current version.)
-
 - ipfshttpclient
+
+(Go to ipfshttpclient library > client > **init**.py and modify VERSION_MAXIMUM to current version or use [this repo](https://github.com/jwc20/py-ipfs-http-client))
