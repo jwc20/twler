@@ -4,6 +4,19 @@ https://user-images.githubusercontent.com/99288419/229197079-2449edb6-063f-4296-
 
 ## Installation
 
+First, clone the repo. 
+```
+git clone --recurse-submodules git@github.com:jwc20/twler.git
+cd twler
+```
+
+Navigate to the iwf_api scraper repo and checkout the twler-integration branch. 
+```
+cd api/iwf_api 
+git checkout twler-integration 
+cd ../.. 
+```
+
 In root directory, run the following command to start both React web client and Django api.
 
 ```
